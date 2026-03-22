@@ -1,655 +1,735 @@
 import { useState, useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 const NAV_LINKS = ["About", "Skills", "Projects", "Certifications", "Contact"];
 const RESUME_URL = "https://drive.google.com/file/d/1KhxbItu50wbAjbzkN8EXO1chFGriu2XF/view?usp=sharing";
-const PROFILE_IMAGE = "/Anand.png"; // Set to your image URL when ready
+const PROFILE_IMAGE = "/Anand.png";
 
-/* ─────────────────────────────────────────────
-   UNIFIED PROFESSIONAL COLOR SYSTEM
-   Primary:   #1e3a5f  (deep navy)
-   Accent:    #0ea5e9  (sky blue)
-   Highlight: #06b6d4  (teal/cyan)
-   Surface:   #f0f4f8 / #e8edf5 / #ffffff
-   Text:      #0f172a / #334155 / #64748b
-───────────────────────────────────────────── */
+// ── EmailJS Config ─────────────────────────────────────────────────────
+const EMAILJS_SERVICE_ID  = "service_u1txvzs";   // e.g. "service_abc123"
+const EMAILJS_TEMPLATE_ID = "template_3tiac9e";  // e.g. "template_xyz789"
+const EMAILJS_PUBLIC_KEY  = "0EuleLIVzHzhHTvyq";
+// ───────────────────────────────────────────────────────────────────────
 
-const SKILLS = {
-  Frontend:   ["HTML5", "CSS3", "Tailwind CSS", "JavaScript (ES6+)", "React.js"],
-  Backend:    ["Node.js", "Express.js", "REST API Development", "JWT Authentication"],
-  Database:   ["MongoDB", "Mongoose"],
-  Tools:      ["Git", "GitHub", "Postman", "VS Code"],
-  Deployment: ["Netlify", "Render"],
-};
-
-// Unified monochromatic skill palette — navy shades
-const SKILL_COLORS = {
-  Frontend:   { pill: "#1e3a5f", pillBg: "#e8edf5", border: "#c8d5e8" },
-  Backend:    { pill: "#0369a1", pillBg: "#e0f2fe", border: "#bae6fd" },
-  Database:   { pill: "#0e7490", pillBg: "#ecfeff", border: "#a5f3fc" },
-  Tools:      { pill: "#1d4ed8", pillBg: "#eff6ff", border: "#bfdbfe" },
-  Deployment: { pill: "#4f46e5", pillBg: "#eef2ff", border: "#c7d2fe" },
-};
+const SKILLS = [
+  { name: "React.js",            icon: "⚛",  cat: "Frontend"  },
+  { name: "JavaScript ES6+",     icon: "𝐉𝐒", cat: "Frontend"  },
+  { name: "HTML5 / CSS3",        icon: "🌐", cat: "Frontend"  },
+  { name: "Tailwind CSS",        icon: "🎨", cat: "Frontend"  },
+  { name: "React Hooks",         icon: "🪝", cat: "Frontend"  },
+  { name: "React Router v6",     icon: "🔀", cat: "Frontend"  },
+  { name: "Node.js",             icon: "🟢", cat: "Backend"   },
+  { name: "Express.js",          icon: "🚂", cat: "Backend"   },
+  { name: "REST API",            icon: "🔌", cat: "Backend"   },
+  { name: "JWT Auth",            icon: "🔐", cat: "Backend"   },
+  { name: "MongoDB",             icon: "🍃", cat: "Database"  },
+  { name: "Mongoose ODM",        icon: "📦", cat: "Database"  },
+  { name: "Git / GitHub",        icon: "🐙", cat: "Tools"     },
+  { name: "Postman",             icon: "📮", cat: "Tools"     },
+  { name: "Axios",               icon: "📡", cat: "Tools"     },
+  { name: "Netlify / Render",    icon: "🚀", cat: "Deploy"    },
+];
 
 const PROJECTS = [
   {
+    num: "01",
     title: "College Placement Management System",
-    desc: "A role-based full-stack web app managing student placements and company recruitment workflows with JWT authentication for Student, TPO, and Admin roles.",
-    stack: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT"],
+    desc: "A production-grade, role-based full-stack web app that digitizes student placements and company recruitment workflows with JWT authentication for Student, TPO, and Admin roles.",
+    stack: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT", "Axios"],
     highlights: [
       "10+ RESTful APIs for job posting & interview scheduling",
       "Role-based access: Student, TPO, Admin",
-      "JWT-based secure authentication",
+      "JWT auth + Axios centralized error handling",
+      "CI/CD pipeline — Netlify & Render",
     ],
     github_fe: "https://github.com/Anand12082001",
     github_be: "https://github.com/Anand12082001",
     live: "https://sparkling-vacherin-edc492.netlify.app/",
-    accent: "#0ea5e9", tag: "Full-Stack",
+    tag: "Full-Stack · MERN",
+    color: "#38bdf8",
   },
   {
+    num: "02",
     title: "Invoice Builder",
-    desc: "A professional invoice management app with automatic total and tax calculation, dynamic forms, invoice preview and export functionality.",
-    stack: ["React.js", "Node.js", "Express.js", "MongoDB"],
+    desc: "A full-stack invoice management app to create, edit, preview, and export professional invoices with real-time total and tax calculation and dynamic React form components.",
+    stack: ["React.js", "Node.js", "Express.js", "MongoDB", "Mongoose"],
     highlights: [
-      "Dynamic invoice forms with real-time calculations",
+      "Dynamic forms with real-time quantity, rate & tax",
       "Invoice preview and PDF export",
-      "Tax & total auto-computation",
+      "Full CRUD via Express REST API",
+      "MongoDB + Mongoose data persistence",
     ],
     github_fe: "https://github.com/Anand12082001",
     github_be: "https://github.com/Anand12082001",
-    live: "#",
-    accent: "#06b6d4", tag: "Web App",
+    live: "https://velvety-lily-fbab4f.netlify.app/",
+    tag: "Full-Stack · MERN",
+    color: "#34d399",
   },
   {
-    title: "MERN Capstone Project",
-    desc: "A full-stack MERN application demonstrating end-to-end development skills — REST API design, React UI, MongoDB integration, and cloud deployment.",
-    stack: ["React.js", "Node.js", "Express.js", "MongoDB"],
+    num: "03",
+    title: "Movie Review App",
+    desc: "A responsive React app to search, explore and review movies powered by the OMDB public API. Real-time search with debounced input, movie detail cards and clean Tailwind UI.",
+    stack: ["React.js", "Tailwind CSS", "React Hooks", "OMDB API"],
     highlights: [
-      "Full-stack MERN architecture",
-      "RESTful API design & integration",
-      "Deployed on Netlify & Render",
+      "Real-time search via OMDB API with debounce",
+      "Poster, rating, genre, plot & year cards",
+      "useState & useEffect state management",
+      "Fully responsive Tailwind CSS UI",
     ],
-    github_fe: "https://github.com/Anand12082001",
-    github_be: "https://github.com/Anand12082001",
-    live: "#",
-    accent: "#1d4ed8", tag: "Capstone",
+    github_fe: "https://github.com/Anand12082001/Project_2_movieReview.git",
+    github_be: null,
+    live: "https://gleaming-tapioca-a677cc.netlify.app/",
+    tag: "Frontend · React",
+    color: "#a78bfa",
   },
 ];
 
-function useIntersection(ref, threshold = 0.1) {
-  const [visible, setVisible] = useState(false);
+const CERTS = [
+  { title: "MERN Stack Development", issuer: "GUVI — Geek Networks", sub: "Full-Stack Web Development Certification", date: "Dec 2024", color: "#38bdf8" },
+  { title: "Version Control — Git & GitHub", issuer: "GUVI — Geek Networks", sub: "Branching, pull requests & collaborative workflows", date: "2024", color: "#34d399" },
+];
+
+/* ── Helpers ── */
+function useVisible(threshold = 0.12) {
+  const ref = useRef();
+  const [v, setV] = useState(false);
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVisible(true); },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [ref, threshold]);
-  return visible;
+    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold });
+    if (ref.current) o.observe(ref.current);
+    return () => o.disconnect();
+  }, []);
+  return [ref, v];
 }
 
-function FadeIn({ children, delay = 0, style = {} }) {
-  const ref = useRef();
-  const visible = useIntersection(ref);
+function Reveal({ children, delay = 0, y = 30 }) {
+  const [ref, v] = useVisible();
   return (
-    <div ref={ref} style={{
-      opacity: visible ? 1 : 0,
-      transform: visible ? "translateY(0)" : "translateY(28px)",
-      transition: `opacity 0.7s cubic-bezier(.4,0,.2,1) ${delay}s, transform 0.7s cubic-bezier(.4,0,.2,1) ${delay}s`,
-      ...style,
-    }}>
+    <div ref={ref} style={{ opacity: v ? 1 : 0, transform: v ? "none" : `translateY(${y}px)`, transition: `opacity .75s cubic-bezier(.4,0,.2,1) ${delay}s, transform .75s cubic-bezier(.4,0,.2,1) ${delay}s` }}>
       {children}
     </div>
   );
 }
 
-function Avatar() {
-  return (
-    <div style={{ position:"relative", flexShrink:0 }}>
-      {/* outer glow */}
-      <div style={{ position:"absolute", inset:"-8px", borderRadius:"50%", background:"linear-gradient(135deg,#0ea5e9,#06b6d4,#1e3a5f)", opacity:0.25, filter:"blur(14px)", zIndex:0 }} />
-      {/* gradient ring */}
-      <div style={{ position:"absolute", inset:"-3px", borderRadius:"50%", background:"linear-gradient(135deg,#0ea5e9 0%,#06b6d4 50%,#1d4ed8 100%)", zIndex:1 }} />
-      {/* inner white border + photo */}
-      <div style={{
-        position:"relative", zIndex:2,
-        width:"clamp(155px,16vw,220px)", height:"clamp(155px,16vw,220px)",
-        borderRadius:"50%", overflow:"hidden",
-        border:"4px solid rgba(255,255,255,0.18)",
-        background:"linear-gradient(135deg,#1e3a5f,#0f2a48)",
-        display:"flex", alignItems:"center", justifyContent:"center",
-      }}>
-        {PROFILE_IMAGE ? (
-          <img src={PROFILE_IMAGE} alt="Anand J" style={{ width:"100%", height:"100%", objectFit:"cover" }} />
-        ) : (
-          <div style={{ textAlign:"center" }}>
-            <div style={{ fontSize:"clamp(2.8rem,5.5vw,4rem)", lineHeight:1 }}>👨‍💻</div>
-            <div style={{ fontSize:"0.55rem", color:"#7dd3fc", fontWeight:800, marginTop:"6px", letterSpacing:"0.08em" }}><img /></div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-/* Small teal dot used in section labels */
-function Dot() {
-  return <span style={{ display:"inline-block", width:"6px", height:"6px", borderRadius:"50%", background:"#06b6d4", marginRight:"8px", verticalAlign:"middle" }} />;
-}
+/* ── GitHub SVG icon ── */
+const GH = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+  </svg>
+);
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState("About");
-  const [typedText, setTypedText]         = useState("");
-  const [menuOpen, setMenuOpen]           = useState(false);
-  const roles    = ["MERN Stack Developer", "React.js Enthusiast", "Full-Stack Builder"];
-  const roleIdx  = useRef(0);
-  const charIdx  = useRef(0);
-  const deleting = useRef(false);
+  const [active, setActive]   = useState("About");
+  const [typed, setTyped]     = useState("");
+  const [menu, setMenu]       = useState(false);
+  const [form, setForm]       = useState({ name:"", email:"", subject:"", message:"" });
+  const [sent, setSent]       = useState(false);
+  const [err, setErr]         = useState("");
+  const [loading, setLoading] = useState(false);
+  const [activeSkillCat, setActiveSkillCat] = useState("All");
 
+  const roles   = ["MERN Stack Developer", "Full Stack Developer", "React.js Engineer"];
+  const rIdx    = useRef(0);
+  const cIdx    = useRef(0);
+  const del     = useRef(false);
+
+  /* typing */
   useEffect(() => {
     const tick = () => {
-      const cur = roles[roleIdx.current];
-      if (!deleting.current) {
-        setTypedText(cur.slice(0, charIdx.current + 1));
-        charIdx.current++;
-        if (charIdx.current === cur.length) { deleting.current = true; setTimeout(tick, 1800); return; }
+      const cur = roles[rIdx.current];
+      if (!del.current) {
+        setTyped(cur.slice(0, cIdx.current + 1));
+        cIdx.current++;
+        if (cIdx.current === cur.length) { del.current = true; setTimeout(tick, 1800); return; }
       } else {
-        setTypedText(cur.slice(0, charIdx.current - 1));
-        charIdx.current--;
-        if (charIdx.current === 0) { deleting.current = false; roleIdx.current = (roleIdx.current + 1) % roles.length; }
+        setTyped(cur.slice(0, cIdx.current - 1));
+        cIdx.current--;
+        if (cIdx.current === 0) { del.current = false; rIdx.current = (rIdx.current + 1) % roles.length; }
       }
-      setTimeout(tick, deleting.current ? 48 : 85);
+      setTimeout(tick, del.current ? 45 : 80);
     };
-    const t = setTimeout(tick, 800);
+    const t = setTimeout(tick, 900);
     return () => clearTimeout(t);
   }, []);
 
+  /* scrollspy */
   useEffect(() => {
-    const handler = () => {
-      const offsets = NAV_LINKS.map((id) => {
+    const h = () => {
+      const hits = NAV_LINKS.map(id => {
         const el = document.getElementById(id.toLowerCase());
         return el ? { id, top: Math.abs(el.getBoundingClientRect().top) } : { id, top: Infinity };
-      });
-      offsets.sort((a, b) => a.top - b.top);
-      setActiveSection(offsets[0].id);
+      }).sort((a, b) => a.top - b.top);
+      setActive(hits[0].id);
     };
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    window.addEventListener("scroll", h, { passive: true });
+    return () => window.removeEventListener("scroll", h);
   }, []);
 
-  const scrollTo = (id) => {
-    document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
-    setMenuOpen(false);
+  const go = id => { document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior:"smooth" }); setMenu(false); };
+
+  /* form */
+  const fc = e => { setForm(p => ({ ...p, [e.target.name]: e.target.value })); setErr(""); };
+  const fs = async e => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) { setErr("Please fill in all required fields."); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) { setErr("Enter a valid email address."); return; }
+    setLoading(true);
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { from_name: form.name, from_email: form.email, subject: form.subject || `Message from ${form.name}`, message: form.message }, EMAILJS_PUBLIC_KEY);
+      setSent(true);
+      setForm({ name:"", email:"", subject:"", message:"" });
+      setTimeout(() => setSent(false), 6000);
+    } catch { setErr("Send failed. Email me directly: anandjayakumardae@gmail.com"); }
+    finally { setLoading(false); }
   };
 
-  const W = { maxWidth:"1200px", margin:"0 auto", padding:"0 clamp(1.5rem,6vw,6rem)" };
+  const skillCats = ["All", ...new Set(SKILLS.map(s => s.cat))];
+  const filteredSkills = activeSkillCat === "All" ? SKILLS : SKILLS.filter(s => s.cat === activeSkillCat);
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
-        *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
-        html { scroll-behavior: smooth; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+        html { scroll-behavior:smooth; }
 
         :root {
-          --font      : Calibri, 'Nunito', 'Segoe UI', Tahoma, sans-serif;
-          /* Unified palette */
-          --navy      : #0f172a;
-          --navy-mid  : #1e3a5f;
-          --navy-light: #1e40af;
-          --sky       : #0ea5e9;
-          --teal      : #06b6d4;
-          --indigo    : #4f46e5;
-          /* Text */
-          --tx-dark   : #0f172a;
-          --tx-mid    : #334155;
-          --tx-soft   : #64748b;
-          --tx-faint  : #94a3b8;
-          /* Surface */
-          --surf-0    : #ffffff;
-          --surf-1    : #f0f5fa;
-          --surf-2    : #e5edf6;
-          --border    : #dce5f0;
-          /* Dark surfaces (hero/nav/footer) */
-          --dark-0    : #080f1a;
-          --dark-1    : #0d1829;
-          --dark-2    : #162236;
-          --dark-bd   : rgba(14,165,233,0.15);
+          --font   : Calibri, 'Inter', 'Segoe UI', sans-serif;
+          --bg     : #0a0a0f;
+          --bg2    : #0f0f1a;
+          --bg3    : #13131f;
+          --card   : #111120;
+          --border : rgba(255,255,255,0.07);
+          --border2: rgba(255,255,255,0.12);
+          --sky    : #38bdf8;
+          --teal   : #34d399;
+          --purple : #a78bfa;
+          --text   : #f1f5f9;
+          --muted  : #94a3b8;
+          --faint  : #475569;
         }
 
-        body { font-family: var(--font); background: var(--surf-0); color: var(--tx-dark); }
+        body { font-family:var(--font); background:var(--bg); color:var(--text); overflow-x:hidden; }
 
-        @keyframes blink  { 0%,100%{opacity:1} 50%{opacity:0} }
-        @keyframes float  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-        @keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
-        @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes blink   { 0%,100%{opacity:1} 50%{opacity:0} }
+        @keyframes float   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+        @keyframes glow-p  { 0%,100%{opacity:.4} 50%{opacity:.7} }
+        @keyframes spin    { to{transform:rotate(360deg)} }
+        @keyframes slide-r { from{opacity:0;transform:translateX(-20px)} to{opacity:1;transform:translateX(0)} }
 
-        .avatar-float { animation: float 5s ease-in-out infinite; }
+        .avatar-float { animation:float 6s ease-in-out infinite; }
 
-        /* ── SCROLLBAR ── */
-        ::-webkit-scrollbar { width:5px; }
-        ::-webkit-scrollbar-track { background: var(--dark-0); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--sky), var(--teal)); border-radius:4px; }
+        /* scrollbar */
+        ::-webkit-scrollbar { width:4px; }
+        ::-webkit-scrollbar-track { background:var(--bg); }
+        ::-webkit-scrollbar-thumb { background:linear-gradient(var(--sky),var(--purple)); border-radius:4px; }
 
-        /* ══ NAV ══ */
-        .nav-root {
-          position:fixed; top:0; left:0; right:0; z-index:300;
-          height:64px; display:flex; align-items:center; justify-content:space-between;
+        /* ── NAV ── */
+        .nav {
+          position:fixed; top:0; left:0; right:0; z-index:500;
+          height:68px; display:flex; align-items:center; justify-content:space-between;
           padding:0 clamp(1.5rem,5vw,5rem);
-          background: var(--dark-1);
-          border-bottom: 1px solid var(--dark-bd);
-          box-shadow: 0 4px 32px rgba(0,0,0,0.5);
+          background:rgba(10,10,15,0.85);
+          backdrop-filter:blur(20px);
+          border-bottom:1px solid var(--border);
         }
         .nav-logo {
-          font-size:1.45rem; font-weight:900; letter-spacing:-0.02em;
-          background: linear-gradient(90deg,#fff,#7dd3fc);
+          font-size:1.5rem; font-weight:900; letter-spacing:-.03em;
+          background:linear-gradient(90deg,#fff 0%,var(--sky) 100%);
           -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
         }
-        .nav-logo em { font-style:normal; -webkit-text-fill-color: var(--teal); }
-        .nav-ul { display:flex; gap:1.6rem; list-style:none; }
-        .nli {
-          cursor:pointer; font-family:var(--font); font-size:0.86rem; font-weight:600;
-          letter-spacing:0.03em; padding:5px 0; border-bottom:2px solid transparent;
-          color:rgba(255,255,255,0.55); transition:color .2s,border-color .2s;
+        .nav-ul { display:flex; gap:2rem; list-style:none; }
+        .nav-li {
+          cursor:pointer; font-size:.85rem; font-weight:500; letter-spacing:.04em;
+          color:var(--muted); padding:4px 0; border-bottom:2px solid transparent;
+          transition:color .2s,border-color .2s; font-family:var(--font);
         }
-        .nli:hover { color:#fff; }
-        .nli.on { color:#fff; border-bottom-color: var(--teal); }
-        .nav-btn {
-          font-family:var(--font); font-weight:700; font-size:0.84rem;
-          background: linear-gradient(90deg, var(--sky), var(--teal));
-          color:#fff; border:none; border-radius:7px; padding:8px 20px;
+        .nav-li:hover { color:var(--text); }
+        .nav-li.on { color:#fff; border-bottom-color:var(--sky); }
+        .nav-cta {
+          font-family:var(--font); font-size:.83rem; font-weight:700;
+          color:var(--bg); background:var(--sky);
+          border:none; border-radius:8px; padding:9px 22px;
           cursor:pointer; text-decoration:none; display:inline-block;
           transition:transform .2s,box-shadow .2s;
-          box-shadow: 0 2px 12px rgba(14,165,233,0.3);
+          box-shadow:0 0 20px rgba(56,189,248,.3);
         }
-        .nav-btn:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(6,182,212,0.45); }
+        .nav-cta:hover { transform:translateY(-2px); box-shadow:0 0 32px rgba(56,189,248,.5); }
         .hbg { display:none; flex-direction:column; gap:5px; cursor:pointer; }
-        .hbg span { display:block; width:21px; height:2px; background:#fff; border-radius:2px; transition:.3s; }
+        .hbg span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; transition:.3s; }
         .mob-menu {
-          position:fixed; top:64px; left:0; right:0; z-index:299;
-          background:var(--dark-1); border-bottom:1px solid var(--dark-bd);
-          padding:1.2rem 2rem 1.6rem; display:flex; flex-direction:column; gap:.9rem;
-          box-shadow:0 8px 32px rgba(0,0,0,0.4);
+          position:fixed; top:68px; left:0; right:0; z-index:499;
+          background:rgba(10,10,15,.97); backdrop-filter:blur(20px);
+          border-bottom:1px solid var(--border);
+          padding:1.5rem 2rem 2rem;
+          display:flex; flex-direction:column; gap:1rem;
         }
-        .mob-li { font-family:var(--font); font-size:1rem; font-weight:700; color:rgba(255,255,255,0.6); cursor:pointer; padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+        .mob-li { font-family:var(--font); font-size:1.1rem; font-weight:600; color:var(--muted); cursor:pointer; padding:8px 0; border-bottom:1px solid var(--border); }
         .mob-li:hover { color:#fff; }
 
-        /* ══ HERO ══ */
-        .hero-root {
-          min-height:100vh; display:flex; align-items:center;
-          padding:86px clamp(1.5rem,6vw,6rem) 0;
-          background: var(--dark-0);
-          position:relative; overflow:hidden;
+        /* ── HERO ── */
+        .hero {
+          min-height:100vh; position:relative; overflow:hidden;
+          display:flex; align-items:center;
+          padding:90px clamp(1.5rem,6vw,6rem) 0;
+          background:var(--bg);
         }
-        /* subtle noise texture */
-        .hero-root::before {
-          content:''; position:absolute; inset:0; pointer-events:none;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-          background-size:200px;
+        /* big radial glow behind name */
+        .hero::before {
+          content:''; position:absolute;
+          top:50%; left:30%; transform:translate(-50%,-50%);
+          width:900px; height:900px; border-radius:50%;
+          background:radial-gradient(circle, rgba(56,189,248,.07) 0%, transparent 65%);
+          pointer-events:none;
         }
-        .hero-grid { display:grid; grid-template-columns:1fr auto; gap:4rem; align-items:center; width:100%; max-width:1200px; margin:0 auto; position:relative; z-index:1; padding-bottom:5rem; }
-
-        /* ══ SECTION COMMON ══ */
-        .sec-label {
-          display:flex; align-items:center; gap:6px;
-          font-size:0.7rem; font-weight:800; letter-spacing:0.2em;
-          text-transform:uppercase; color:var(--sky); margin-bottom:0.55rem;
+        .hero::after {
+          content:''; position:absolute;
+          top:60%; right:10%; width:500px; height:500px; border-radius:50%;
+          background:radial-gradient(circle, rgba(167,139,250,.05) 0%, transparent 65%);
+          pointer-events:none;
         }
-        .sec-title {
-          font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:900;
-          letter-spacing:-0.03em; color:var(--tx-dark); margin-bottom:2.8rem; line-height:1.1;
-        }
-
-        /* ══ SKILLS ══ */
-        .skills-root { background:var(--surf-1); padding:5.5rem 0; border-top:1px solid var(--border); }
-        .skill-card {
-          background:var(--surf-0); border:1px solid var(--border);
-          border-radius:14px; padding:1.4rem;
-          transition:transform .25s,box-shadow .25s,border-color .25s;
-        }
-        .skill-card:hover { transform:translateY(-5px); box-shadow:0 12px 32px rgba(14,165,233,0.1); border-color:#bcd0e8; }
-
-        /* ══ PROJECTS ══ */
-        .proj-root { background:var(--surf-0); padding:5.5rem 0; }
-        .proj-card {
-          background:var(--surf-0); border:1px solid var(--border);
-          border-radius:18px; padding:1.8rem;
-          display:flex; flex-direction:column; gap:.85rem;
-          height:100%; transition:transform .3s,box-shadow .3s,border-color .3s;
-        }
-        .proj-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(15,23,42,0.12); border-color:#b8cfe0; }
-        .gh-btn {
-          display:inline-flex; align-items:center; gap:5px; font-family:var(--font);
-          font-size:.78rem; font-weight:700; color:var(--tx-soft);
-          text-decoration:none; border:1.5px solid var(--border);
-          padding:6px 13px; border-radius:7px; transition:all .2s;
-        }
-        .gh-btn:hover { border-color:var(--sky); color:var(--sky); background:#f0f9ff; }
-
-        /* ══ CERTIFICATIONS ══ */
-        .cert-root { background:var(--surf-1); padding:5.5rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-        .cert-card {
-          background:var(--surf-0); border:1px solid var(--border);
-          border-left:4px solid var(--teal);
-          border-radius:18px; padding:2.2rem;
-          display:flex; align-items:center; gap:1.8rem;
-          max-width:520px;
-          box-shadow:0 4px 24px rgba(6,182,212,0.07);
-          transition:transform .25s,box-shadow .25s;
-        }
-        .cert-card:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(6,182,212,0.13); }
-
-        /* ══ CONTACT ══ */
-        .contact-root { background:var(--surf-0); padding:5.5rem 0; }
-        .contact-link {
-          display:flex; align-items:center; gap:14px;
-          padding:14px 18px; border-radius:13px;
-          background:var(--surf-1); border:1px solid var(--border);
-          color:var(--tx-dark); text-decoration:none;
-          font-weight:600; font-size:.9rem; margin-bottom:.85rem;
-          transition:all .22s;
-        }
-        .contact-link:hover { border-color:var(--sky); box-shadow:0 4px 20px rgba(14,165,233,0.12); transform:translateX(5px); background:#f0f9ff; }
-
-        /* ══ FOOTER ══ */
-        .footer-root {
-          background: var(--dark-0);
-          border-top: 1px solid rgba(14,165,233,0.18);
-          position:relative; overflow:hidden;
-        }
-        .footer-root::before {
-          content:''; position:absolute; inset:0; pointer-events:none;
-          background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(14,165,233,0.06) 0%, transparent 70%);
-        }
-        .footer-link { font-family:var(--font); font-size:0.82rem; font-weight:700; text-decoration:none; letter-spacing:0.04em; color:rgba(255,255,255,0.4); transition:color .2s; }
-        .footer-link:hover { color: var(--teal); }
-
-        /* ══ HERO BUTTONS ══ */
-        .h-btn-p {
-          font-family:var(--font); font-weight:700; font-size:.95rem;
-          background:linear-gradient(90deg, var(--sky), var(--teal));
-          color:#fff; border:none; border-radius:9px; padding:13px 30px;
-          cursor:pointer; transition:transform .2s,box-shadow .2s;
-          box-shadow:0 4px 20px rgba(14,165,233,0.35);
-        }
-        .h-btn-p:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(6,182,212,0.5); }
-        .h-btn-o {
-          font-family:var(--font); font-weight:700; font-size:.95rem;
-          background:transparent; color:rgba(255,255,255,0.8);
-          border:1.5px solid rgba(255,255,255,0.2); border-radius:9px;
-          padding:12px 28px; cursor:pointer; transition:all .2s;
-        }
-        .h-btn-o:hover { border-color:var(--teal); color:#fff; background:rgba(6,182,212,0.08); }
-
-        /* ══ STATS ══ */
-        .stat-num {
-          font-size:1.65rem; font-weight:900; letter-spacing:-0.03em;
-          background:linear-gradient(90deg,#fff,#7dd3fc);
+        .hero-inner { display:grid; grid-template-columns:1fr auto; gap:5rem; align-items:center; width:100%; max-width:1200px; margin:0 auto; position:relative; z-index:1; padding-bottom:6rem; }
+        .hero-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(56,189,248,.08); border:1px solid rgba(56,189,248,.2); border-radius:100px; padding:6px 18px; margin-bottom:1.8rem; }
+        .hero-dot { width:7px; height:7px; border-radius:50%; background:#22c55e; box-shadow:0 0 0 3px rgba(34,197,94,.25); }
+        .hero-tag-txt { font-size:.72rem; font-weight:700; color:var(--sky); letter-spacing:.12em; text-transform:uppercase; }
+        .hero-name {
+          font-size:clamp(3.5rem,7vw,6rem); font-weight:900; line-height:.95;
+          letter-spacing:-.05em; margin-bottom:1rem;
+          background:linear-gradient(120deg,#fff 0%,#e0f2fe 45%,var(--sky) 100%);
           -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
         }
-        .stat-lbl { font-size:0.74rem; color:rgba(255,255,255,0.38); font-weight:600; letter-spacing:0.05em; margin-top:2px; }
+        .hero-role { font-size:clamp(1rem,2vw,1.35rem); font-weight:500; color:var(--muted); margin-bottom:1.6rem; min-height:2em; }
+        .hero-role span { color:var(--sky); }
+        .hero-cursor { display:inline-block; width:2px; height:1.1em; background:var(--sky); margin-left:3px; vertical-align:middle; animation:blink 1s step-end infinite; }
+        .hero-desc { font-size:1rem; line-height:1.9; color:var(--faint); max-width:490px; margin-bottom:2.8rem; }
+        .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
+        .btn-solid { font-family:var(--font); font-size:.95rem; font-weight:700; background:var(--sky); color:#000; border:none; border-radius:10px; padding:13px 30px; cursor:pointer; transition:transform .2s,box-shadow .2s; box-shadow:0 0 24px rgba(56,189,248,.3); }
+        .btn-solid:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(56,189,248,.5); }
+        .btn-ghost { font-family:var(--font); font-size:.95rem; font-weight:600; background:transparent; color:var(--text); border:1.5px solid var(--border2); border-radius:10px; padding:12px 28px; cursor:pointer; transition:all .2s; }
+        .btn-ghost:hover { border-color:var(--sky); color:var(--sky); }
+        .hero-divider { width:48px; height:1px; background:linear-gradient(90deg,var(--sky),transparent); margin:2.8rem 0 2.2rem; }
+        .stats { display:flex; gap:3rem; flex-wrap:wrap; }
+        .stat-n { font-size:1.8rem; font-weight:900; color:#fff; letter-spacing:-.03em; }
+        .stat-l { font-size:.73rem; color:var(--faint); font-weight:600; letter-spacing:.06em; margin-top:2px; }
 
-        /* ══ RESPONSIVE ══ */
-        @media(max-width:768px){
-          .hero-grid  { grid-template-columns:1fr !important; text-align:center; padding-bottom:3rem; }
-          .h-btns     { justify-content:center !important; }
-          .stats-row  { justify-content:center !important; }
-          .nav-ul     { display:none !important; }
-          .hbg        { display:flex !important; }
-          .avcol      { order:-1; margin:0 auto; }
-          .footer-row { grid-template-columns:1fr !important; text-align:center; }
-          .footer-links { justify-content:center !important; margin-top:1rem; }
+        /* ── AVATAR ── */
+        .avatar-wrap { position:relative; flex-shrink:0; }
+        .av-glow { position:absolute; inset:-12px; border-radius:50%; background:linear-gradient(135deg,var(--sky),var(--purple)); opacity:.2; filter:blur(20px); z-index:0; animation:glow-p 4s ease-in-out infinite; }
+        .av-ring { position:absolute; inset:-3px; border-radius:50%; background:linear-gradient(135deg,var(--sky) 0%,var(--teal) 50%,var(--purple) 100%); z-index:1; }
+        .av-img {
+          position:relative; z-index:2;
+          width:clamp(160px,17vw,230px); height:clamp(160px,17vw,230px);
+          border-radius:50%; overflow:hidden;
+          border:4px solid rgba(0,0,0,.5);
+          background:linear-gradient(135deg,#1a1a2e,#16213e);
+          display:flex; align-items:center; justify-content:center;
         }
+        .av-img img { width:100%; height:100%; object-fit:cover; }
+        .av-placeholder { font-size:clamp(3rem,6vw,4.2rem); }
+
+        /* ── SECTION COMMON ── */
+        .sec { padding:6rem 0; }
+        .sec-inner { max-width:1200px; margin:0 auto; padding:0 clamp(1.5rem,6vw,6rem); }
+        .sec-eyebrow { font-size:.7rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--sky); margin-bottom:.5rem; display:flex; align-items:center; gap:8px; }
+        .sec-eyebrow::before { content:''; display:block; width:20px; height:1px; background:var(--sky); }
+        .sec-h2 { font-size:clamp(2rem,4vw,3rem); font-weight:900; letter-spacing:-.04em; color:#fff; margin-bottom:3rem; line-height:1; }
+
+        /* ── SKILLS ── */
+        .skills-bg { background:var(--bg2); }
+        .skill-filter { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:2rem; }
+        .sf-btn { font-family:var(--font); font-size:.75rem; font-weight:700; padding:6px 16px; border-radius:100px; border:1px solid var(--border2); background:transparent; color:var(--muted); cursor:pointer; transition:all .2s; }
+        .sf-btn:hover { border-color:var(--sky); color:var(--sky); }
+        .sf-btn.active { background:var(--sky); color:#000; border-color:var(--sky); }
+        .skills-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:.85rem; }
+        .skill-pill {
+          display:flex; align-items:center; gap:10px;
+          background:var(--card); border:1px solid var(--border);
+          border-radius:12px; padding:14px 16px;
+          transition:transform .25s,border-color .25s,box-shadow .25s;
+          cursor:default;
+        }
+        .skill-pill:hover { transform:translateY(-4px); border-color:rgba(56,189,248,.3); box-shadow:0 8px 24px rgba(56,189,248,.08); }
+        .skill-icon { font-size:1.2rem; flex-shrink:0; }
+        .skill-name { font-size:.82rem; font-weight:600; color:var(--text); }
+        .skill-cat-badge { font-size:.6rem; font-weight:700; color:var(--sky); text-transform:uppercase; letter-spacing:.08em; margin-top:2px; }
+
+        /* ── PROJECTS ── */
+        .proj-bg { background:var(--bg); }
+        .proj-grid { display:flex; flex-direction:column; gap:2.5rem; }
+        .proj-card {
+          display:grid; grid-template-columns:auto 1fr;
+          gap:2.5rem; align-items:start;
+          background:var(--card); border:1px solid var(--border);
+          border-radius:20px; padding:2.5rem;
+          transition:border-color .3s,box-shadow .3s,transform .3s;
+          position:relative; overflow:hidden;
+        }
+        .proj-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--color,var(--sky)),transparent); }
+        .proj-card:hover { border-color:rgba(56,189,248,.2); box-shadow:0 20px 60px rgba(0,0,0,.4); transform:translateY(-4px); }
+        .proj-num { font-size:4rem; font-weight:900; line-height:1; letter-spacing:-.05em; color:var(--border2); font-family:var(--font); min-width:80px; }
+        .proj-body { display:flex; flex-direction:column; gap:.9rem; }
+        .proj-tag { display:inline-flex; font-size:.68rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; padding:4px 12px; border-radius:100px; }
+        .proj-title { font-size:1.3rem; font-weight:800; color:#fff; line-height:1.2; }
+        .proj-desc { font-size:.88rem; color:var(--muted); line-height:1.8; max-width:640px; }
+        .proj-bullets { display:flex; flex-direction:column; gap:4px; }
+        .proj-bullet { font-size:.8rem; color:var(--faint); padding-left:12px; border-left:1px solid var(--border2); line-height:1.55; }
+        .proj-stack { display:flex; flex-wrap:wrap; gap:6px; }
+        .proj-tech { font-size:.7rem; font-weight:700; padding:3px 10px; border-radius:5px; border:1px solid; }
+        .proj-links { display:flex; gap:.65rem; flex-wrap:wrap; padding-top:.5rem; border-top:1px solid var(--border); }
+        .p-link { display:inline-flex; align-items:center; gap:5px; font-family:var(--font); font-size:.78rem; font-weight:700; text-decoration:none; padding:7px 14px; border-radius:8px; border:1px solid var(--border2); color:var(--muted); transition:all .2s; }
+        .p-link:hover { border-color:var(--sky); color:var(--sky); }
+        .p-link-live { color:#000 !important; border-color:transparent !important; }
+
+        /* ── CERTIFICATIONS ── */
+        .cert-bg { background:var(--bg2); }
+        .cert-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1.5rem; }
+        .cert-card {
+          background:var(--card); border:1px solid var(--border);
+          border-radius:18px; padding:2rem;
+          transition:transform .25s,box-shadow .25s,border-color .25s;
+          position:relative; overflow:hidden;
+        }
+        .cert-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; border-radius:0 0 18px 18px; }
+        .cert-card:hover { transform:translateY(-5px); box-shadow:0 16px 48px rgba(0,0,0,.4); border-color:var(--border2); }
+        .cert-icon-wrap { width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin-bottom:1.2rem; }
+        .cert-title { font-size:1rem; font-weight:800; color:#fff; margin-bottom:4px; }
+        .cert-issuer { font-size:.83rem; font-weight:600; margin-bottom:3px; }
+        .cert-sub { font-size:.78rem; color:var(--faint); margin-bottom:8px; }
+        .cert-date { font-size:.74rem; color:var(--faint); }
+        .cert-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.25); color:#4ade80; font-size:.67rem; font-weight:800; padding:3px 11px; border-radius:100px; letter-spacing:.1em; margin-top:10px; }
+
+        /* ── CONTACT ── */
+        .contact-bg { background:var(--bg); }
+        .contact-grid { display:grid; grid-template-columns:1fr 1.3fr; gap:4rem; align-items:start; }
+        .c-heading { font-size:1.6rem; font-weight:800; color:#fff; margin-bottom:1rem; line-height:1.2; }
+        .c-desc { font-size:.95rem; color:var(--muted); line-height:1.9; margin-bottom:2rem; }
+        .soc-item { display:flex; align-items:center; gap:14px; padding:14px 18px; border-radius:14px; background:var(--card); border:1px solid var(--border); color:var(--text); text-decoration:none; font-weight:600; font-size:.88rem; margin-bottom:.8rem; transition:all .22s; }
+        .soc-item:hover { border-color:rgba(56,189,248,.35); background:rgba(56,189,248,.05); transform:translateX(5px); }
+        .soc-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+        .soc-label { font-weight:700; color:#fff; font-size:.88rem; }
+        .soc-sub { font-size:.74rem; color:var(--faint); margin-top:1px; }
+
+        /* form */
+        .form-box { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:2.5rem; }
+        .form-title { font-size:1.15rem; font-weight:800; color:#fff; margin-bottom:1.5rem; }
+        .form-row2 { display:grid; grid-template-columns:1fr 1fr; gap:.85rem; }
+        .form-group { display:flex; flex-direction:column; gap:5px; margin-bottom:.85rem; }
+        .form-label { font-size:.72rem; font-weight:700; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; }
+        .form-inp {
+          font-family:var(--font); font-size:.9rem;
+          background:rgba(255,255,255,.04); border:1.5px solid var(--border);
+          border-radius:10px; padding:12px 15px; color:var(--text);
+          outline:none; transition:border-color .2s,box-shadow .2s; width:100%;
+        }
+        .form-inp:focus { border-color:var(--sky); box-shadow:0 0 0 3px rgba(56,189,248,.1); }
+        .form-inp::placeholder { color:var(--faint); }
+        .form-submit { width:100%; font-family:var(--font); font-size:.95rem; font-weight:700; background:var(--sky); color:#000; border:none; border-radius:10px; padding:14px; cursor:pointer; transition:transform .2s,box-shadow .2s,opacity .2s; margin-top:.4rem; box-shadow:0 0 20px rgba(56,189,248,.25); }
+        .form-submit:hover { transform:translateY(-2px); box-shadow:0 0 36px rgba(56,189,248,.4); }
+        .form-submit:disabled { opacity:.65; cursor:not-allowed; transform:none; }
+        .alert-ok { background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.3); color:#4ade80; border-radius:10px; padding:12px 16px; font-size:.87rem; font-weight:700; margin-bottom:1rem; }
+        .alert-err { background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.3); color:#f87171; border-radius:10px; padding:12px 16px; font-size:.87rem; font-weight:700; margin-bottom:1rem; }
+
+        /* ── FOOTER ── */
+        .footer { background:var(--bg); border-top:1px solid var(--border); padding:3rem clamp(1.5rem,6vw,6rem); }
+        .footer-inner { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem; }
+        .footer-logo { font-size:1.3rem; font-weight:900; background:linear-gradient(90deg,#fff,var(--sky)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        .footer-links { display:flex; gap:1.8rem; }
+        .footer-link { font-family:var(--font); font-size:.82rem; font-weight:600; color:var(--faint); text-decoration:none; transition:color .2s; }
+        .footer-link:hover { color:var(--sky); }
+        .footer-copy { font-size:.78rem; color:var(--faint); }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:900px) { .proj-card { grid-template-columns:1fr !important; } .proj-num { font-size:2.5rem; } .contact-grid { grid-template-columns:1fr !important; } .form-row2 { grid-template-columns:1fr !important; } }
+        @media(max-width:768px) { .hero-inner { grid-template-columns:1fr !important; text-align:center; padding-bottom:3rem; } .hero-btns { justify-content:center; } .stats { justify-content:center; } .hero-divider { margin:2rem auto; } .nav-ul { display:none !important; } .hbg { display:flex !important; } .avcol { order:-1; margin:0 auto; } .footer-inner { flex-direction:column; text-align:center; } .footer-links { justify-content:center; } }
       `}</style>
 
-      <div style={{ fontFamily:"var(--font)", minHeight:"100vh" }}>
+      <div style={{ fontFamily:"var(--font)" }}>
 
-        {/* ══════════════════ NAV ══════════════════ */}
-        <nav className="nav-root">
-          <div className="nav-logo">AJ<em>.</em></div>
+        {/* ══ NAV ══ */}
+        <nav className="nav">
+          <div className="nav-logo">AJ.</div>
           <ul className="nav-ul">
-            {NAV_LINKS.map(l => (
-              <li key={l} className={`nli${activeSection===l?" on":""}`} onClick={()=>scrollTo(l)}>{l}</li>
-            ))}
+            {NAV_LINKS.map(l => <li key={l} className={`nav-li${active===l?" on":""}`} onClick={()=>go(l)}>{l}</li>)}
           </ul>
           <div style={{ display:"flex", alignItems:"center", gap:"1rem" }}>
-            <a href={RESUME_URL} target="_blank" rel="noreferrer" className="nav-btn">Resume ↗</a>
-            <div className="hbg" onClick={()=>setMenuOpen(o=>!o)}>
-              <span style={{ transform:menuOpen?"rotate(45deg) translate(5px,5px)":"none" }} />
-              <span style={{ opacity:menuOpen?0:1 }} />
-              <span style={{ transform:menuOpen?"rotate(-45deg) translate(5px,-5px)":"none" }} />
+            <a href={RESUME_URL} target="_blank" rel="noreferrer" className="nav-cta">Resume ↗</a>
+            <div className="hbg" onClick={()=>setMenu(o=>!o)}>
+              <span style={{ transform:menu?"rotate(45deg) translate(5px,5px)":"none" }} />
+              <span style={{ opacity:menu?0:1 }} />
+              <span style={{ transform:menu?"rotate(-45deg) translate(5px,-5px)":"none" }} />
             </div>
           </div>
         </nav>
-        {menuOpen && (
+        {menu && (
           <div className="mob-menu">
-            {NAV_LINKS.map(l=><div key={l} className="mob-li" onClick={()=>scrollTo(l)}>{l}</div>)}
+            {NAV_LINKS.map(l => <div key={l} className="mob-li" onClick={()=>go(l)}>{l}</div>)}
           </div>
         )}
 
-        {/* ══════════════════ HERO ══════════════════ */}
-        <section id="about" className="hero-root">
-          {/* radial glows */}
-          <div style={{ position:"absolute", top:"-100px", right:"-80px", width:"550px", height:"550px", borderRadius:"50%", background:"radial-gradient(circle,rgba(14,165,233,0.1) 0%,transparent 65%)", pointerEvents:"none" }} />
-          <div style={{ position:"absolute", bottom:"-80px", left:"-60px", width:"400px", height:"400px", borderRadius:"50%", background:"radial-gradient(circle,rgba(6,182,212,0.07) 0%,transparent 65%)", pointerEvents:"none" }} />
-          <div style={{ position:"absolute", top:0, left:0, right:0, height:"2px", background:"linear-gradient(90deg,transparent 0%,var(--sky) 30%,var(--teal) 70%,transparent 100%)", opacity:0.6 }} />
+        {/* ══ HERO ══ */}
+        <section id="about" className="hero">
+          {/* decorative grid lines */}
+          <div style={{ position:"absolute", inset:0, backgroundImage:"linear-gradient(rgba(56,189,248,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.025) 1px,transparent 1px)", backgroundSize:"72px 72px", pointerEvents:"none" }} />
+          {/* top glow bar */}
+          <div style={{ position:"absolute", top:0, left:0, right:0, height:"1px", background:"linear-gradient(90deg,transparent,var(--sky) 40%,var(--purple) 70%,transparent)", opacity:.5 }} />
 
-          <div className="hero-grid">
+          <div className="hero-inner">
             <div>
-              {/* availability pill */}
-              <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", background:"rgba(14,165,233,0.1)", border:"1px solid rgba(14,165,233,0.25)", borderRadius:"100px", padding:"6px 16px", marginBottom:"1.6rem" }}>
-                <span style={{ width:"7px", height:"7px", borderRadius:"50%", background:"#22c55e", boxShadow:"0 0 0 3px rgba(34,197,94,0.22)" }} />
-                <span style={{ fontSize:"0.72rem", fontWeight:800, color:"#7dd3fc", letterSpacing:"0.1em" }}>OPEN TO OPPORTUNITIES</span>
+              <div className="hero-tag">
+                <span className="hero-dot" />
+                <span className="hero-tag-txt">Open to Opportunities</span>
               </div>
 
-              {/* name */}
-              <h1 style={{
-                fontSize:"clamp(3rem,6.5vw,5.5rem)", fontWeight:900, lineHeight:1.0,
-                letterSpacing:"-0.04em", marginBottom:"0.85rem",
-                background:"linear-gradient(125deg, #ffffff 0%, #bae6fd 40%, #67e8f9 100%)",
-                WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text",
-              }}>Anand J</h1>
+              <h1 className="hero-name">Anand J</h1>
 
-              {/* typed role */}
-              <div style={{ fontSize:"clamp(1rem,2vw,1.4rem)", fontWeight:600, color:"rgba(255,255,255,0.45)", marginBottom:"1.5rem", minHeight:"2em" }}>
-                <span style={{ color:"#38bdf8" }}>{typedText}</span>
-                <span style={{ display:"inline-block", width:"2px", height:"1.1em", background:"#38bdf8", marginLeft:"3px", verticalAlign:"middle", animation:"blink 1s step-end infinite" }} />
+              <div className="hero-role">
+                <span>{typed}</span>
+                <span className="hero-cursor" />
               </div>
 
-              <p style={{ color:"rgba(255,255,255,0.42)", fontSize:"1rem", lineHeight:1.9, maxWidth:"500px", marginBottom:"2.5rem" }}>
-                MERN Stack Developer passionate about building scalable full-stack applications.
-                Experienced with REST APIs, JWT authentication, and modern React patterns.
+              <p className="hero-desc">
+                Motivated MERN Stack Developer with hands-on experience building scalable full-stack
+                web applications. Strong in component-based architecture, REST API design, and MongoDB
+                database modeling.
               </p>
 
-              <div className="h-btns" style={{ display:"flex", gap:"1rem", flexWrap:"wrap" }}>
-                <button className="h-btn-p" onClick={()=>scrollTo("Projects")}>View Projects →</button>
-                <button className="h-btn-o" onClick={()=>scrollTo("Contact")}>Get In Touch</button>
+              <div className="hero-btns">
+                <button className="btn-solid" onClick={()=>go("Projects")}>View Projects →</button>
+                <button className="btn-ghost" onClick={()=>go("Contact")}>Get In Touch</button>
               </div>
 
-              {/* divider */}
-              <div style={{ width:"56px", height:"1px", background:"linear-gradient(90deg,var(--teal),transparent)", margin:"2.8rem 0 2.2rem" }} />
+              <div className="hero-divider" />
 
-              {/* stats */}
-              <div className="stats-row" style={{ display:"flex", gap:"2.8rem", flexWrap:"wrap" }}>
-                {[["2+","Projects Built"],["10+","APIs Developed"],["GUVI","Certified"]].map(([n,l])=>(
+              <div className="stats">
+                {[["3","MERN Projects"],["10+","APIs Built"],["7.59","CGPA B.Tech"]].map(([n,l])=>(
                   <div key={l}>
-                    <div className="stat-num">{n}</div>
-                    <div className="stat-lbl">{l}</div>
+                    <div className="stat-n">{n}</div>
+                    <div className="stat-l">{l}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="avatar-float avcol"><Avatar /></div>
-          </div>
-        </section>
-
-        {/* ══════════════════ SKILLS ══════════════════ */}
-        <section id="skills" className="skills-root">
-          <div style={W}>
-            <FadeIn>
-              <div className="sec-label"><Dot />What I work with</div>
-              <h2 className="sec-title">Technical Skills</h2>
-            </FadeIn>
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(205px,1fr))", gap:"1.1rem" }}>
-              {Object.entries(SKILLS).map(([cat,items],i)=>{
-                const c = SKILL_COLORS[cat];
-                return (
-                  <FadeIn key={cat} delay={i*0.07}>
-                    <div className="skill-card" style={{ borderTop:`3px solid ${c.pill}` }}>
-                      <div style={{ fontSize:"0.68rem", fontWeight:800, letterSpacing:"0.14em", textTransform:"uppercase", color:c.pill, marginBottom:"0.9rem" }}>{cat}</div>
-                      <div style={{ display:"flex", flexWrap:"wrap", gap:"6px" }}>
-                        {items.map(s=>(
-                          <span key={s} style={{ background:c.pillBg, border:`1px solid ${c.border}`, color:c.pill, fontSize:"0.76rem", fontWeight:700, padding:"4px 11px", borderRadius:"5px" }}>{s}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </FadeIn>
-                );
-              })}
+            {/* avatar */}
+            <div className="avatar-float avcol">
+              <div className="avatar-wrap">
+                <div className="av-glow" />
+                <div className="av-ring" />
+                <div className="av-img">
+                  {PROFILE_IMAGE
+                    ? <img src={PROFILE_IMAGE} alt="Anand J" />
+                    : <div className="av-placeholder">👨‍💻</div>
+                  }
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ══════════════════ PROJECTS ══════════════════ */}
-        <section id="projects" className="proj-root">
-          <div style={W}>
-            <FadeIn>
-              <div className="sec-label"><Dot />What I've built</div>
-              <h2 className="sec-title">Projects</h2>
-            </FadeIn>
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(310px,1fr))", gap:"1.6rem" }}>
-              {PROJECTS.map((p,i)=>(
-                <FadeIn key={p.title} delay={i*0.09}>
-                  <div className="proj-card" style={{ borderTop:`3px solid ${p.accent}` }}>
-                    {/* tag + icon */}
-                    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                      <span style={{ background:`${p.accent}12`, color:p.accent, border:`1px solid ${p.accent}30`, fontSize:"0.7rem", fontWeight:800, padding:"4px 12px", borderRadius:"100px", letterSpacing:"0.08em" }}>{p.tag}</span>
-                      <span style={{ fontSize:"1.1rem", color:p.accent, opacity:0.3 }}>◈</span>
-                    </div>
-                    {/* title */}
-                    <div style={{ fontSize:"1.05rem", fontWeight:800, color:"var(--tx-dark)", lineHeight:1.3 }}>{p.title}</div>
-                    {/* desc */}
-                    <p style={{ fontSize:"0.86rem", color:"var(--tx-soft)", lineHeight:1.78 }}>{p.desc}</p>
-                    {/* highlights */}
-                    <div style={{ display:"flex", flexDirection:"column", gap:"5px" }}>
-                      {p.highlights.map(h=>(
-                        <div key={h} style={{ fontSize:"0.79rem", color:"var(--tx-soft)", paddingLeft:"10px", borderLeft:`2px solid ${p.accent}40`, lineHeight:1.55 }}>{h}</div>
-                      ))}
-                    </div>
-                    {/* stack */}
-                    <div style={{ display:"flex", flexWrap:"wrap", gap:"5px" }}>
-                      {p.stack.map(s=>(
-                        <span key={s} style={{ background:`${p.accent}0e`, border:`1px solid ${p.accent}28`, color:p.accent, fontSize:"0.71rem", fontWeight:700, padding:"3px 9px", borderRadius:"4px" }}>{s}</span>
-                      ))}
-                    </div>
-                    {/* links */}
-                    <div style={{ display:"flex", gap:".65rem", flexWrap:"wrap", marginTop:"auto", paddingTop:"0.5rem" }}>
-                      <a href={p.github_fe} target="_blank" rel="noreferrer" className="gh-btn">⌥ Frontend</a>
-                      <a href={p.github_be} target="_blank" rel="noreferrer" className="gh-btn">⌥ Backend</a>
-                      {p.live!="#"&&(
-                        <a href={p.live} target="_blank" rel="noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:"4px", fontSize:".78rem", fontWeight:700, color:p.accent, textDecoration:"none", border:`1.5px solid ${p.accent}35`, padding:"6px 13px", borderRadius:"7px", background:`${p.accent}08`, fontFamily:"var(--font)", transition:"all .2s" }}>↗ Live</a>
-                      )}
+        {/* ══ SKILLS ══ */}
+        <section id="skills" className="sec skills-bg">
+          <div className="sec-inner">
+            <Reveal>
+              <div className="sec-eyebrow">What I work with</div>
+              <h2 className="sec-h2">Technical Skills</h2>
+            </Reveal>
+
+            {/* filter tabs */}
+            <Reveal delay={0.05}>
+              <div className="skill-filter">
+                {skillCats.map(c => (
+                  <button key={c} className={`sf-btn${activeSkillCat===c?" active":""}`} onClick={()=>setActiveSkillCat(c)}>{c}</button>
+                ))}
+              </div>
+            </Reveal>
+
+            <div className="skills-grid">
+              {filteredSkills.map((s,i) => (
+                <Reveal key={s.name} delay={i*0.04}>
+                  <div className="skill-pill">
+                    <span className="skill-icon">{s.icon}</span>
+                    <div>
+                      <div className="skill-name">{s.name}</div>
+                      <div className="skill-cat-badge">{s.cat}</div>
                     </div>
                   </div>
-                </FadeIn>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ══════════════════ CERTIFICATIONS ══════════════════ */}
-        <section id="certifications" className="cert-root">
-          <div style={W}>
-            <FadeIn>
-              <div className="sec-label"><Dot />Credentials</div>
-              <h2 className="sec-title">Certifications</h2>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <div className="cert-card">
-                {/* icon */}
-                <div style={{ width:"66px", height:"66px", borderRadius:"14px", background:"linear-gradient(135deg,#ecfeff,#cffafe)", border:"1px solid #a5f3fc", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.9rem", flexShrink:0 }}>🏆</div>
-                <div>
-                  <div style={{ fontSize:"1.08rem", fontWeight:800, color:"var(--tx-dark)", marginBottom:"3px" }}>MERN Stack Development</div>
-                  <div style={{ fontSize:"0.88rem", fontWeight:700, color:"#0891b2" }}>GUVI — Geek Networks</div>
-                  <div style={{ fontSize:"0.78rem", color:"var(--tx-faint)", marginTop:"4px" }}>Dec 2025 · Capstone Certified</div>
-                  <div style={{ marginTop:"12px", display:"inline-flex", alignItems:"center", gap:"5px", background:"#f0fdf4", border:"1px solid #bbf7d0", color:"#16a34a", fontSize:"0.7rem", fontWeight:800, padding:"4px 12px", borderRadius:"100px", letterSpacing:"0.1em" }}>
-                    <span style={{ fontSize:"0.8rem" }}>✓</span> VERIFIED
-                  </div>
-                </div>
-              </div>
-            </FadeIn>
-          </div>
-        </section>
+        {/* ══ PROJECTS ══ */}
+        <section id="projects" className="sec proj-bg">
+          <div className="sec-inner">
+            <Reveal>
+              <div className="sec-eyebrow">What I've built</div>
+              <h2 className="sec-h2">Projects</h2>
+            </Reveal>
 
-        {/* ══════════════════ CONTACT ══════════════════ */}
-        <section id="contact" className="contact-root">
-          <div style={W}>
-            <FadeIn>
-              <div className="sec-label"><Dot />Let's connect</div>
-              <h2 className="sec-title">Get In Touch</h2>
-            </FadeIn>
-            <FadeIn delay={0.08}>
-              <p style={{ color:"var(--tx-soft)", fontSize:"1rem", lineHeight:1.88, maxWidth:"540px", marginBottom:"2.4rem" }}>
-                I'm actively looking for fresher MERN Stack opportunities. Feel free to reach out for positions, collaborations, or just to say hi!
-              </p>
-              <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(230px,1fr))", gap:"0.9rem", maxWidth:"700px" }}>
-                {[
-                  { icon:"✉",  label:"Email",    sub:"anandjayakumardae@gmail.com", href:"mailto:anandjayakumardae@gmail.com", iconBg:"#e0f2fe", iconColor:"#0369a1" },
-                  { icon:"💼", label:"LinkedIn",  sub:"linkedin.com/in/anand-j",      href:"https://www.linkedin.com/in/anand-j/",       iconBg:"#dbeafe",  iconColor:"#1d4ed8" },
-                  { icon:"🐙", label:"GitHub",    sub:"github.com/Anand12082001",     href:"https://github.com/Anand12082001",           iconBg:"#f1f5f9",  iconColor:"#334155" },
-                  { icon:"📍", label:"Location",  sub:"Salem, Tamil Nadu, India",      href:null,                                          iconBg:"#ecfeff",  iconColor:"#0e7490" },
-                ].map(({icon,label,sub,href,iconBg,iconColor})=>(
-                  <a key={label} href={href||undefined} target={href&&!href.startsWith("mailto")?"_blank":undefined} rel="noreferrer" className="contact-link" style={{ cursor:href?"pointer":"default" }}>
-                    <span style={{ width:"42px", height:"42px", borderRadius:"10px", background:iconBg, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.15rem", flexShrink:0 }}>{icon}</span>
-                    <div>
-                      <div style={{ fontWeight:700, color:"var(--tx-dark)", fontSize:"0.9rem" }}>{label}</div>
-                      <div style={{ fontSize:"0.76rem", color:"var(--tx-faint)", marginTop:"2px" }}>{sub}</div>
+            <div className="proj-grid">
+              {PROJECTS.map((p,i) => (
+                <Reveal key={p.title} delay={i*0.1}>
+                  <div className="proj-card" style={{ "--color": p.color }}>
+                    <div className="proj-num">{p.num}</div>
+                    <div className="proj-body">
+                      {/* tag */}
+                      <div>
+                        <span className="proj-tag" style={{ background:`${p.color}15`, color:p.color, border:`1px solid ${p.color}30` }}>{p.tag}</span>
+                      </div>
+                      <div className="proj-title">{p.title}</div>
+                      <p className="proj-desc">{p.desc}</p>
+
+                      {/* highlights */}
+                      <div className="proj-bullets">
+                        {p.highlights.map(h => <div key={h} className="proj-bullet" style={{ borderLeftColor:`${p.color}40` }}>{h}</div>)}
+                      </div>
+
+                      {/* stack */}
+                      <div>
+                        <div style={{ fontSize:".65rem", fontWeight:700, letterSpacing:".1em", textTransform:"uppercase", color:"var(--faint)", marginBottom:"8px" }}>Tech Stack</div>
+                        <div className="proj-stack">
+                          {p.stack.map(s => (
+                            <span key={s} className="proj-tech" style={{ background:`${p.color}0d`, borderColor:`${p.color}30`, color:p.color }}>{s}</span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* links */}
+                      <div className="proj-links">
+                        <a href={p.github_fe} target="_blank" rel="noreferrer" className="p-link">
+                          <GH /> {p.github_be ? "Frontend" : "GitHub"}
+                        </a>
+                        {p.github_be && (
+                          <a href={p.github_be} target="_blank" rel="noreferrer" className="p-link">
+                            <GH /> Backend
+                          </a>
+                        )}
+                        {p.live !== "#" ? (
+                          <a href={p.live} target="_blank" rel="noreferrer" className="p-link p-link-live" style={{ background:p.color }}>
+                            ↗ Live Demo
+                          </a>
+                        ) : (
+                          <span className="p-link" style={{ opacity:.5, cursor:"default" }}>🔒 Coming Soon</span>
+                        )}
+                      </div>
                     </div>
-                  </a>
-                ))}
-              </div>
-            </FadeIn>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* ══════════════════ FOOTER ══════════════════ */}
-        <footer className="footer-root">
-          {/* top shimmer line */}
-          <div style={{ height:"2px", background:"linear-gradient(90deg,transparent 0%,var(--sky) 30%,var(--teal) 70%,transparent 100%)", opacity:0.6 }} />
+        {/* ══ CERTIFICATIONS ══ */}
+        <section id="certifications" className="sec cert-bg">
+          <div className="sec-inner">
+            <Reveal>
+              <div className="sec-eyebrow">Credentials</div>
+              <h2 className="sec-h2">Certifications</h2>
+            </Reveal>
+            <div className="cert-grid">
+              {CERTS.map((c,i) => (
+                <Reveal key={c.title} delay={i*0.1}>
+                  <div className="cert-card" style={{ borderColor:`${c.color}20` }}>
+                    <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"2px", background:c.color, borderRadius:"0 0 18px 18px", opacity:.6 }} />
+                    <div className="cert-icon-wrap" style={{ background:`${c.color}15`, border:`1px solid ${c.color}30` }}>
+                      <span style={{ fontSize:"1.5rem" }}>{i===0?"🏆":"🎓"}</span>
+                    </div>
+                    <div className="cert-title">{c.title}</div>
+                    <div className="cert-issuer" style={{ color:c.color }}>{c.issuer}</div>
+                    <div className="cert-sub">{c.sub}</div>
+                    <div className="cert-date">{c.date}</div>
+                    <div className="cert-badge">✓ Verified</div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
 
-          <div style={{ ...W, padding:"clamp(2.5rem,5vw,3.5rem) clamp(1.5rem,6vw,6rem)", position:"relative", zIndex:1 }}>
-            {/* main row */}
-            <div className="footer-row" style={{ display:"grid", gridTemplateColumns:"1fr auto", gap:"2rem", alignItems:"start" }}>
-              {/* brand */}
-              <div>
-                <div style={{ fontSize:"1.5rem", fontWeight:900, background:"linear-gradient(90deg,#fff,#7dd3fc)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text", marginBottom:"0.5rem" }}>
-                  AJ<span style={{ WebkitTextFillColor:"var(--teal)" }}>.</span>
+        {/* ══ CONTACT ══ */}
+        <section id="contact" className="sec contact-bg">
+          <div className="sec-inner">
+            <Reveal>
+              <div className="sec-eyebrow">Let's connect</div>
+              <h2 className="sec-h2">Get In Touch</h2>
+            </Reveal>
+
+            <div className="contact-grid">
+              {/* left */}
+              <Reveal delay={0.05}>
+                <div>
+                  <div className="c-heading">Let's build<br />something great.</div>
+                  <p className="c-desc">I'm actively looking for fresher MERN Stack / Full-Stack developer opportunities. Feel free to reach out for positions, collaborations, or just to say hi!</p>
+
+                  {[
+                    { icon:"✉",  label:"Email",    sub:"anandjayakumardae@gmail.com", href:"mailto:anandjayakumardae@gmail.com", bg:"rgba(56,189,248,.1)" },
+                    { icon:"💼", label:"LinkedIn",  sub:"linkedin.com/in/anand-j",      href:"https://www.linkedin.com/in/anand-j/",    bg:"rgba(29,78,216,.15)" },
+                    { icon:"🐙", label:"GitHub",    sub:"github.com/Anand12082001",     href:"https://github.com/Anand12082001",        bg:"rgba(255,255,255,.06)" },
+                    { icon:"📄", label:"Resume",    sub:"View / Download",              href:RESUME_URL,                                bg:"rgba(52,211,153,.1)" },
+                    { icon:"📍", label:"Location",  sub:"Salem, Tamil Nadu, India",      href:null,                                     bg:"rgba(167,139,250,.1)" },
+                  ].map(({ icon, label, sub, href, bg }) => (
+                    <a key={label} href={href||undefined} target={href&&!href.startsWith("mailto")?"_blank":undefined} rel="noreferrer" className="soc-item" style={{ cursor:href?"pointer":"default" }}>
+                      <span className="soc-icon" style={{ background:bg }}>{icon}</span>
+                      <div>
+                        <div className="soc-label">{label}</div>
+                        <div className="soc-sub">{sub}</div>
+                      </div>
+                    </a>
+                  ))}
                 </div>
-                <div style={{ fontSize:"0.84rem", color:"rgba(255,255,255,0.38)", marginBottom:"3px" }}>MERN Stack Developer</div>
-                <div style={{ fontSize:"0.78rem", color:"rgba(255,255,255,0.22)" }}>Salem, Tamil Nadu, India</div>
-              </div>
-              {/* links */}
-              <div className="footer-links" style={{ display:"flex", flexDirection:"column", gap:"0.7rem", alignItems:"flex-end" }}>
-                {[
-                  { label:"GitHub",   href:"https://github.com/Anand12082001" },
-                  { label:"LinkedIn", href:"https://www.linkedin.com/in/anand-j/" },
-                  { label:"Resume",   href:RESUME_URL },
-                ].map(({label,href})=>(
-                  <a key={label} href={href} target="_blank" rel="noreferrer" className="footer-link">{label} ↗</a>
-                ))}
-              </div>
-            </div>
+              </Reveal>
 
-            {/* divider + copyright */}
-            <div style={{ marginTop:"2.2rem", paddingTop:"1.4rem", borderTop:"1px solid rgba(255,255,255,0.05)", display:"flex", justifyContent:"space-between", flexWrap:"wrap", gap:"0.5rem" }}>
-              <span style={{ fontSize:"0.76rem", color:"rgba(255,255,255,0.2)" }}>
-                © {new Date().getFullYear()} Anand J · All rights reserved
-              </span>
-              <span style={{ fontSize:"0.76rem", color:"rgba(255,255,255,0.2)" }}>
-                Built with <span style={{ color:"var(--sky)" }}>React.js</span> · Calibri
-              </span>
+              {/* right — form */}
+              <Reveal delay={0.1}>
+                <div className="form-box">
+                  <div className="form-title">Send a Message</div>
+                  {sent && <div className="alert-ok">✓ Message sent! I'll reply within 24 hours.</div>}
+                  {err  && <div className="alert-err">⚠ {err}</div>}
+                  <form onSubmit={fs}>
+                    <div className="form-row2">
+                      <div className="form-group">
+                        <label className="form-label">Name *</label>
+                        <input className="form-inp" name="name" placeholder="Your name" value={form.name} onChange={fc} />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Email *</label>
+                        <input className="form-inp" name="email" type="email" placeholder="your@email.com" value={form.email} onChange={fc} />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Subject</label>
+                      <input className="form-inp" name="subject" placeholder="Job Opportunity / Collaboration" value={form.subject} onChange={fc} />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Message *</label>
+                      <textarea className="form-inp" name="message" placeholder="Write your message..." value={form.message} onChange={fc} rows={5} style={{ resize:"vertical" }} />
+                    </div>
+                    <button type="submit" className="form-submit" disabled={loading}>
+                      {loading ? "Sending…" : "Send Message →"}
+                    </button>
+                  </form>
+                </div>
+              </Reveal>
             </div>
+          </div>
+        </section>
+
+        {/* ══ FOOTER ══ */}
+        <footer className="footer">
+          {/* top line */}
+          <div style={{ position:"absolute", left:0, right:0, height:"1px", background:"linear-gradient(90deg,transparent,var(--sky) 40%,var(--purple) 70%,transparent)", opacity:.3, marginTop:"-3rem" }} />
+          <div className="footer-inner">
+            <div>
+              <div className="footer-logo">AJ.</div>
+              <div className="footer-copy" style={{ marginTop:"4px" }}>MERN Stack Developer · Salem, Tamil Nadu</div>
+            </div>
+            <div className="footer-links">
+              {[["GitHub","https://github.com/Anand12082001"],["LinkedIn","https://www.linkedin.com/in/anand-j/"],["Resume",RESUME_URL]].map(([l,h])=>(
+                <a key={l} href={h} target="_blank" rel="noreferrer" className="footer-link">{l}</a>
+              ))}
+            </div>
+            <div className="footer-copy">© {new Date().getFullYear()} Anand J · All rights reserved</div>
           </div>
         </footer>
 
