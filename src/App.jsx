@@ -5,149 +5,137 @@ const NAV_LINKS = ["About", "Skills", "Projects", "Certifications", "Contact"];
 const RESUME_URL = "https://drive.google.com/file/d/1KhxbItu50wbAjbzkN8EXO1chFGriu2XF/view?usp=sharing";
 const PROFILE_IMAGE = "/Anand.png";
 
-// ── EmailJS Config ─────────────────────────────────────────────────────
+// ── EmailJS Config ──────────────────────────────────────────────────
 const EMAILJS_SERVICE_ID  = "service_u1txvzs";   // e.g. "service_abc123"
 const EMAILJS_TEMPLATE_ID = "template_3tiac9e";  // e.g. "template_xyz789"
 const EMAILJS_PUBLIC_KEY  = "0EuleLIVzHzhHTvyq";
-// ───────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────
+// ───────────────────────────────────────────────────────────────────
 
-const SKILLS = [
-  { name: "React.js",            icon: "⚛",  cat: "Frontend"  },
-  { name: "JavaScript ES6+",     icon: "𝐉𝐒", cat: "Frontend"  },
-  { name: "HTML5 / CSS3",        icon: "🌐", cat: "Frontend"  },
-  { name: "Tailwind CSS",        icon: "🎨", cat: "Frontend"  },
-  { name: "React Hooks",         icon: "🪝", cat: "Frontend"  },
-  { name: "React Router v6",     icon: "🔀", cat: "Frontend"  },
-  { name: "Node.js",             icon: "🟢", cat: "Backend"   },
-  { name: "Express.js",          icon: "🚂", cat: "Backend"   },
-  { name: "REST API",            icon: "🔌", cat: "Backend"   },
-  { name: "JWT Auth",            icon: "🔐", cat: "Backend"   },
-  { name: "MongoDB",             icon: "🍃", cat: "Database"  },
-  { name: "Mongoose ODM",        icon: "📦", cat: "Database"  },
-  { name: "Git / GitHub",        icon: "🐙", cat: "Tools"     },
-  { name: "Postman",             icon: "📮", cat: "Tools"     },
-  { name: "Axios",               icon: "📡", cat: "Tools"     },
-  { name: "Netlify / Render",    icon: "🚀", cat: "Deploy"    },
+const SKILLS_MAIN = [
+  { name: "React.js",       icon: "⚛" },
+  { name: "JavaScript",     icon: "JS" },
+  { name: "Node.js",        icon: "🟢" },
+  { name: "Express.js",     icon: "🚂" },
+  { name: "MongoDB",        icon: "🍃" },
+  { name: "Tailwind CSS",   icon: "🎨" },
+  { name: "HTML5",          icon: "📄" },
+  { name: "CSS3",           icon: "💅" },
+];
+
+const SKILLS_MORE = [
+  { name: "React Hooks",     icon: "🪝" },
+  { name: "React Router v6", icon: "🔀" },
+  { name: "JWT Auth",        icon: "🔐" },
+  { name: "REST API",        icon: "🔌" },
+  { name: "Mongoose ODM",    icon: "📦" },
+  { name: "Git / GitHub",    icon: "🐙" },
+  { name: "Postman",         icon: "📮" },
+  { name: "Axios",           icon: "📡" },
+  { name: "Netlify",         icon: "🚀" },
+  { name: "Render",          icon: "☁" },
 ];
 
 const PROJECTS = [
   {
     num: "01",
     title: "College Placement Management System",
-    desc: "A production-grade, role-based full-stack web app that digitizes student placements and company recruitment workflows with JWT authentication for Student, TPO, and Admin roles.",
+    type: "FULL-STACK · MERN",
+    desc: "A production-grade, role-based full-stack web application that digitizes and manages student placements and company recruitment workflows. Features JWT authentication with role-specific access control for Student, TPO, and Admin.",
     stack: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT", "Axios"],
-    highlights: [
-      "10+ RESTful APIs for job posting & interview scheduling",
-      "Role-based access: Student, TPO, Admin",
-      "JWT auth + Axios centralized error handling",
-      "CI/CD pipeline — Netlify & Render",
-    ],
     github_fe: "https://github.com/Anand12082001",
     github_be: "https://github.com/Anand12082001",
     live: "https://sparkling-vacherin-edc492.netlify.app/",
-    tag: "Full-Stack · MERN",
-    color: "#38bdf8",
   },
   {
     num: "02",
     title: "Invoice Builder",
-    desc: "A full-stack invoice management app to create, edit, preview, and export professional invoices with real-time total and tax calculation and dynamic React form components.",
+    type: "FULL-STACK · MERN",
+    desc: "A full-stack invoice management app to create, edit, preview, and export professional invoices with real-time total and tax calculation. Features dynamic React form components with controlled state and full CRUD support.",
     stack: ["React.js", "Node.js", "Express.js", "MongoDB", "Mongoose"],
-    highlights: [
-      "Dynamic forms with real-time quantity, rate & tax",
-      "Invoice preview and PDF export",
-      "Full CRUD via Express REST API",
-      "MongoDB + Mongoose data persistence",
-    ],
     github_fe: "https://github.com/Anand12082001",
     github_be: "https://github.com/Anand12082001",
     live: "https://velvety-lily-fbab4f.netlify.app/",
-    tag: "Full-Stack · MERN",
-    color: "#34d399",
   },
   {
     num: "03",
     title: "Movie Review App",
-    desc: "A responsive React app to search, explore and review movies powered by the OMDB public API. Real-time search with debounced input, movie detail cards and clean Tailwind UI.",
+    type: "FRONTEND · REACT",
+    desc: "A responsive React application to search, explore and review movies powered by the OMDB public API. Real-time search with debounced input, movie detail cards, and a clean Tailwind CSS responsive UI.",
     stack: ["React.js", "Tailwind CSS", "React Hooks", "OMDB API"],
-    highlights: [
-      "Real-time search via OMDB API with debounce",
-      "Poster, rating, genre, plot & year cards",
-      "useState & useEffect state management",
-      "Fully responsive Tailwind CSS UI",
-    ],
     github_fe: "https://github.com/Anand12082001/Project_2_movieReview.git",
     github_be: null,
     live: "https://gleaming-tapioca-a677cc.netlify.app/",
-    tag: "Frontend · React",
-    color: "#a78bfa",
   },
 ];
 
 const CERTS = [
-  { title: "MERN Stack Development", issuer: "GUVI — Geek Networks", sub: "Full-Stack Web Development Certification", date: "Dec 2024", color: "#38bdf8" },
-  { title: "Version Control — Git & GitHub", issuer: "GUVI — Geek Networks", sub: "Branching, pull requests & collaborative workflows", date: "2024", color: "#34d399" },
+  { title: "MERN Stack Development", issuer: "GUVI — Geek Networks", detail: "Full-Stack Web Development Certification Program · Dec 2024" },
+  { title: "Version Control — Git & GitHub", issuer: "GUVI — Geek Networks", detail: "Branching, pull requests & collaborative workflows · 2024" },
 ];
 
-/* ── Helpers ── */
-function useVisible(threshold = 0.12) {
+/* helpers */
+function useVisible(t = 0.1) {
   const ref = useRef();
   const [v, setV] = useState(false);
   useEffect(() => {
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold });
+    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold: t });
     if (ref.current) o.observe(ref.current);
     return () => o.disconnect();
   }, []);
   return [ref, v];
 }
 
-function Reveal({ children, delay = 0, y = 30 }) {
+function FadeUp({ children, delay = 0 }) {
   const [ref, v] = useVisible();
   return (
-    <div ref={ref} style={{ opacity: v ? 1 : 0, transform: v ? "none" : `translateY(${y}px)`, transition: `opacity .75s cubic-bezier(.4,0,.2,1) ${delay}s, transform .75s cubic-bezier(.4,0,.2,1) ${delay}s` }}>
+    <div ref={ref} style={{ opacity: v ? 1 : 0, transform: v ? "none" : "translateY(32px)", transition: `opacity .8s ease ${delay}s, transform .8s ease ${delay}s` }}>
       {children}
     </div>
   );
 }
 
-/* ── GitHub SVG icon ── */
-const GH = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+const GH = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
   </svg>
 );
 
-export default function App() {
-  const [active, setActive]   = useState("About");
-  const [typed, setTyped]     = useState("");
-  const [menu, setMenu]       = useState(false);
-  const [form, setForm]       = useState({ name:"", email:"", subject:"", message:"" });
-  const [sent, setSent]       = useState(false);
-  const [err, setErr]         = useState("");
-  const [loading, setLoading] = useState(false);
-  const [activeSkillCat, setActiveSkillCat] = useState("All");
+const LINE = ({ my = "3rem" }) => (
+  <div style={{ width: "100%", height: "1px", background: "#1a1a1a", margin: `${my} 0` }} />
+);
 
-  const roles   = ["MERN Stack Developer", "Full Stack Developer", "React.js Engineer"];
-  const rIdx    = useRef(0);
-  const cIdx    = useRef(0);
-  const del     = useRef(false);
+export default function App() {
+  const [active, setActive] = useState("About");
+  const [typed, setTyped]   = useState("");
+  const [menu, setMenu]     = useState(false);
+  const [form, setForm]     = useState({ name: "", email: "", subject: "", message: "" });
+  const [sent, setSent]     = useState(false);
+  const [err, setErr]       = useState("");
+  const [loading, setLoading] = useState(false);
+  const [skillTab, setSkillTab] = useState("main");
+
+  const roles  = ["MERN Stack Developer", "Full Stack Developer", "React.js Engineer"];
+  const rIdx   = useRef(0);
+  const cIdx   = useRef(0);
+  const isDel  = useRef(false);
 
   /* typing */
   useEffect(() => {
     const tick = () => {
       const cur = roles[rIdx.current];
-      if (!del.current) {
+      if (!isDel.current) {
         setTyped(cur.slice(0, cIdx.current + 1));
         cIdx.current++;
-        if (cIdx.current === cur.length) { del.current = true; setTimeout(tick, 1800); return; }
+        if (cIdx.current === cur.length) { isDel.current = true; setTimeout(tick, 2000); return; }
       } else {
         setTyped(cur.slice(0, cIdx.current - 1));
         cIdx.current--;
-        if (cIdx.current === 0) { del.current = false; rIdx.current = (rIdx.current + 1) % roles.length; }
+        if (cIdx.current === 0) { isDel.current = false; rIdx.current = (rIdx.current + 1) % roles.length; }
       }
-      setTimeout(tick, del.current ? 45 : 80);
+      setTimeout(tick, isDel.current ? 45 : 90);
     };
-    const t = setTimeout(tick, 900);
+    const t = setTimeout(tick, 800);
     return () => clearTimeout(t);
   }, []);
 
@@ -164,7 +152,7 @@ export default function App() {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
-  const go = id => { document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior:"smooth" }); setMenu(false); };
+  const go = id => { document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: "smooth" }); setMenu(false); };
 
   /* form */
   const fc = e => { setForm(p => ({ ...p, [e.target.name]: e.target.value })); setErr(""); };
@@ -174,562 +162,479 @@ export default function App() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) { setErr("Enter a valid email address."); return; }
     setLoading(true);
     try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { from_name: form.name, from_email: form.email, subject: form.subject || `Message from ${form.name}`, message: form.message }, EMAILJS_PUBLIC_KEY);
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { from_name: form.name, from_email: form.email, subject: form.subject || `Portfolio message from ${form.name}`, message: form.message }, EMAILJS_PUBLIC_KEY);
       setSent(true);
-      setForm({ name:"", email:"", subject:"", message:"" });
-      setTimeout(() => setSent(false), 6000);
-    } catch { setErr("Send failed. Email me directly: anandjayakumardae@gmail.com"); }
+      setForm({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setSent(false), 7000);
+    } catch { setErr("Send failed. Email me: anandjayakumardae@gmail.com"); }
     finally { setLoading(false); }
   };
 
-  const skillCats = ["All", ...new Set(SKILLS.map(s => s.cat))];
-  const filteredSkills = activeSkillCat === "All" ? SKILLS : SKILLS.filter(s => s.cat === activeSkillCat);
+  const W = "max-width:1200px;margin:0 auto;padding:0 clamp(1.5rem,6vw,7rem)";
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Serif+Display:ital@0;1&display=swap');
+
         *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
         html { scroll-behavior:smooth; }
 
         :root {
-          --font   : Calibri, 'Inter', 'Segoe UI', sans-serif;
-          --bg     : #0a0a0f;
-          --bg2    : #0f0f1a;
-          --bg3    : #13131f;
-          --card   : #111120;
-          --border : rgba(255,255,255,0.07);
-          --border2: rgba(255,255,255,0.12);
-          --sky    : #38bdf8;
-          --teal   : #34d399;
-          --purple : #a78bfa;
-          --text   : #f1f5f9;
-          --muted  : #94a3b8;
-          --faint  : #475569;
+          --font-sans : Calibri, 'DM Sans', 'Segoe UI', sans-serif;
+          --font-serif: 'DM Serif Display', Georgia, serif;
+          --bg        : #faf9f7;
+          --bg2       : #f3f1ed;
+          --ink       : #111111;
+          --ink2      : #333333;
+          --ink3      : #666666;
+          --ink4      : #999999;
+          --line      : #1a1a1a;
+          --accent    : #111111;
+          --white     : #ffffff;
+          --border    : #e0ddd8;
         }
 
-        body { font-family:var(--font); background:var(--bg); color:var(--text); overflow-x:hidden; }
+        body { font-family:var(--font-sans); background:var(--bg); color:var(--ink); overflow-x:hidden; }
 
-        @keyframes blink   { 0%,100%{opacity:1} 50%{opacity:0} }
-        @keyframes float   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-        @keyframes glow-p  { 0%,100%{opacity:.4} 50%{opacity:.7} }
-        @keyframes spin    { to{transform:rotate(360deg)} }
-        @keyframes slide-r { from{opacity:0;transform:translateX(-20px)} to{opacity:1;transform:translateX(0)} }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 
-        .avatar-float { animation:float 6s ease-in-out infinite; }
-
-        /* scrollbar */
-        ::-webkit-scrollbar { width:4px; }
+        ::-webkit-scrollbar { width:3px; }
         ::-webkit-scrollbar-track { background:var(--bg); }
-        ::-webkit-scrollbar-thumb { background:linear-gradient(var(--sky),var(--purple)); border-radius:4px; }
+        ::-webkit-scrollbar-thumb { background:var(--ink); }
 
-        /* ── NAV ── */
+        /* ══ NAV ══ */
         .nav {
           position:fixed; top:0; left:0; right:0; z-index:500;
-          height:68px; display:flex; align-items:center; justify-content:space-between;
+          height:70px; display:flex; align-items:center; justify-content:space-between;
           padding:0 clamp(1.5rem,5vw,5rem);
-          background:rgba(10,10,15,0.85);
-          backdrop-filter:blur(20px);
+          background:rgba(250,249,247,.95);
+          backdrop-filter:blur(12px);
           border-bottom:1px solid var(--border);
         }
-        .nav-logo {
-          font-size:1.5rem; font-weight:900; letter-spacing:-.03em;
-          background:linear-gradient(90deg,#fff 0%,var(--sky) 100%);
-          -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-        }
-        .nav-ul { display:flex; gap:2rem; list-style:none; }
-        .nav-li {
-          cursor:pointer; font-size:.85rem; font-weight:500; letter-spacing:.04em;
-          color:var(--muted); padding:4px 0; border-bottom:2px solid transparent;
-          transition:color .2s,border-color .2s; font-family:var(--font);
-        }
-        .nav-li:hover { color:var(--text); }
-        .nav-li.on { color:#fff; border-bottom-color:var(--sky); }
-        .nav-cta {
-          font-family:var(--font); font-size:.83rem; font-weight:700;
-          color:var(--bg); background:var(--sky);
-          border:none; border-radius:8px; padding:9px 22px;
-          cursor:pointer; text-decoration:none; display:inline-block;
-          transition:transform .2s,box-shadow .2s;
-          box-shadow:0 0 20px rgba(56,189,248,.3);
-        }
-        .nav-cta:hover { transform:translateY(-2px); box-shadow:0 0 32px rgba(56,189,248,.5); }
+        .nav-logo { font-family:var(--font-serif); font-size:1.5rem; font-weight:400; color:var(--ink); letter-spacing:-.01em; }
+        .nav-logo span { color:var(--ink3); }
+        .nav-ul { display:flex; gap:2.2rem; list-style:none; }
+        .nav-li { cursor:pointer; font-size:.82rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--ink3); transition:color .2s; font-family:var(--font-sans); }
+        .nav-li:hover, .nav-li.on { color:var(--ink); }
+        .nav-li.on { border-bottom:1.5px solid var(--ink); padding-bottom:2px; }
+        .nav-cta { font-family:var(--font-sans); font-size:.82rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--white); background:var(--ink); border:none; border-radius:4px; padding:10px 22px; cursor:pointer; text-decoration:none; display:inline-block; transition:opacity .2s; }
+        .nav-cta:hover { opacity:.8; }
         .hbg { display:none; flex-direction:column; gap:5px; cursor:pointer; }
-        .hbg span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; transition:.3s; }
-        .mob-menu {
-          position:fixed; top:68px; left:0; right:0; z-index:499;
-          background:rgba(10,10,15,.97); backdrop-filter:blur(20px);
-          border-bottom:1px solid var(--border);
-          padding:1.5rem 2rem 2rem;
-          display:flex; flex-direction:column; gap:1rem;
-        }
-        .mob-li { font-family:var(--font); font-size:1.1rem; font-weight:600; color:var(--muted); cursor:pointer; padding:8px 0; border-bottom:1px solid var(--border); }
-        .mob-li:hover { color:#fff; }
+        .hbg span { display:block; width:22px; height:1.5px; background:var(--ink); border-radius:1px; transition:.3s; }
+        .mob-menu { position:fixed; top:70px; left:0; right:0; z-index:499; background:var(--bg); border-bottom:1px solid var(--border); padding:1.5rem 2rem 2rem; display:flex; flex-direction:column; gap:1rem; }
+        .mob-li { font-family:var(--font-sans); font-size:1rem; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--ink3); cursor:pointer; padding:8px 0; border-bottom:1px solid var(--border); }
+        .mob-li:hover { color:var(--ink); }
 
-        /* ── HERO ── */
-        .hero {
-          min-height:100vh; position:relative; overflow:hidden;
-          display:flex; align-items:center;
-          padding:90px clamp(1.5rem,6vw,6rem) 0;
-          background:var(--bg);
-        }
-        /* big radial glow behind name */
-        .hero::before {
-          content:''; position:absolute;
-          top:50%; left:30%; transform:translate(-50%,-50%);
-          width:900px; height:900px; border-radius:50%;
-          background:radial-gradient(circle, rgba(56,189,248,.07) 0%, transparent 65%);
-          pointer-events:none;
-        }
-        .hero::after {
-          content:''; position:absolute;
-          top:60%; right:10%; width:500px; height:500px; border-radius:50%;
-          background:radial-gradient(circle, rgba(167,139,250,.05) 0%, transparent 65%);
-          pointer-events:none;
-        }
-        .hero-inner { display:grid; grid-template-columns:1fr auto; gap:5rem; align-items:center; width:100%; max-width:1200px; margin:0 auto; position:relative; z-index:1; padding-bottom:6rem; }
-        .hero-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(56,189,248,.08); border:1px solid rgba(56,189,248,.2); border-radius:100px; padding:6px 18px; margin-bottom:1.8rem; }
-        .hero-dot { width:7px; height:7px; border-radius:50%; background:#22c55e; box-shadow:0 0 0 3px rgba(34,197,94,.25); }
-        .hero-tag-txt { font-size:.72rem; font-weight:700; color:var(--sky); letter-spacing:.12em; text-transform:uppercase; }
-        .hero-name {
-          font-size:clamp(3.5rem,7vw,6rem); font-weight:900; line-height:.95;
-          letter-spacing:-.05em; margin-bottom:1rem;
-          background:linear-gradient(120deg,#fff 0%,#e0f2fe 45%,var(--sky) 100%);
-          -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-        }
-        .hero-role { font-size:clamp(1rem,2vw,1.35rem); font-weight:500; color:var(--muted); margin-bottom:1.6rem; min-height:2em; }
-        .hero-role span { color:var(--sky); }
-        .hero-cursor { display:inline-block; width:2px; height:1.1em; background:var(--sky); margin-left:3px; vertical-align:middle; animation:blink 1s step-end infinite; }
-        .hero-desc { font-size:1rem; line-height:1.9; color:var(--faint); max-width:490px; margin-bottom:2.8rem; }
-        .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
-        .btn-solid { font-family:var(--font); font-size:.95rem; font-weight:700; background:var(--sky); color:#000; border:none; border-radius:10px; padding:13px 30px; cursor:pointer; transition:transform .2s,box-shadow .2s; box-shadow:0 0 24px rgba(56,189,248,.3); }
-        .btn-solid:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(56,189,248,.5); }
-        .btn-ghost { font-family:var(--font); font-size:.95rem; font-weight:600; background:transparent; color:var(--text); border:1.5px solid var(--border2); border-radius:10px; padding:12px 28px; cursor:pointer; transition:all .2s; }
-        .btn-ghost:hover { border-color:var(--sky); color:var(--sky); }
-        .hero-divider { width:48px; height:1px; background:linear-gradient(90deg,var(--sky),transparent); margin:2.8rem 0 2.2rem; }
-        .stats { display:flex; gap:3rem; flex-wrap:wrap; }
-        .stat-n { font-size:1.8rem; font-weight:900; color:#fff; letter-spacing:-.03em; }
-        .stat-l { font-size:.73rem; color:var(--faint); font-weight:600; letter-spacing:.06em; margin-top:2px; }
+        /* ══ HERO ══ */
+        .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:90px clamp(1.5rem,6vw,7rem) 0; background:var(--bg); position:relative; overflow:hidden; }
+        .hero-inner { max-width:1200px; margin:0 auto; width:100%; display:grid; grid-template-columns:1fr auto; gap:4rem; align-items:center; padding-bottom:6rem; }
+        .hero-eyebrow { font-size:.75rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--ink3); margin-bottom:1.2rem; }
+        .hi { font-family:var(--font-sans); font-size:clamp(1.1rem,2vw,1.4rem); font-weight:300; color:var(--ink3); margin-bottom:-.5rem; font-style:italic; }
+        .hero-name { font-family:var(--font-serif); font-size:clamp(4rem,10vw,8rem); font-weight:400; line-height:.92; letter-spacing:-.03em; color:var(--ink); margin-bottom:1.2rem; }
+        .hero-role { font-size:clamp(.95rem,1.8vw,1.2rem); font-weight:400; color:var(--ink3); margin-bottom:2rem; min-height:1.8em; font-style:italic; }
+        .hero-role em { color:var(--ink); font-style:normal; font-weight:600; }
+        .cursor { display:inline-block; width:2px; height:.95em; background:var(--ink); margin-left:2px; vertical-align:middle; animation:blink 1s step-end infinite; }
+        .hero-desc { font-size:1rem; line-height:1.85; color:var(--ink3); max-width:480px; margin-bottom:2.5rem; font-weight:400; }
+        .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; align-items:center; }
+        .btn-dark { font-family:var(--font-sans); font-size:.82rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--white); background:var(--ink); border:none; border-radius:4px; padding:13px 28px; cursor:pointer; transition:opacity .2s; text-decoration:none; display:inline-block; }
+        .btn-dark:hover { opacity:.8; }
+        .btn-outline { font-family:var(--font-sans); font-size:.82rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); background:transparent; border:1.5px solid var(--ink); border-radius:4px; padding:12px 26px; cursor:pointer; transition:all .2s; }
+        .btn-outline:hover { background:var(--ink); color:var(--white); }
 
-        /* ── AVATAR ── */
-        .avatar-wrap { position:relative; flex-shrink:0; }
-        .av-glow { position:absolute; inset:-12px; border-radius:50%; background:linear-gradient(135deg,var(--sky),var(--purple)); opacity:.2; filter:blur(20px); z-index:0; animation:glow-p 4s ease-in-out infinite; }
-        .av-ring { position:absolute; inset:-3px; border-radius:50%; background:linear-gradient(135deg,var(--sky) 0%,var(--teal) 50%,var(--purple) 100%); z-index:1; }
-        .av-img {
-          position:relative; z-index:2;
-          width:clamp(160px,17vw,230px); height:clamp(160px,17vw,230px);
+        /* avatar */
+        .av-wrap { position:relative; flex-shrink:0; animation:float 6s ease-in-out infinite; }
+        .av-circle {
+          width:clamp(180px,18vw,260px); height:clamp(180px,18vw,260px);
           border-radius:50%; overflow:hidden;
-          border:4px solid rgba(0,0,0,.5);
-          background:linear-gradient(135deg,#1a1a2e,#16213e);
+          border:2px solid var(--border);
+          background:var(--bg2);
           display:flex; align-items:center; justify-content:center;
+          box-shadow:0 4px 40px rgba(0,0,0,.08);
         }
-        .av-img img { width:100%; height:100%; object-fit:cover; }
-        .av-placeholder { font-size:clamp(3rem,6vw,4.2rem); }
+        .av-circle img { width:100%; height:100%; object-fit:cover; display:block; }
+        .av-placeholder { font-size:clamp(3rem,7vw,5rem); }
+        /* decorative label on avatar */
+        .av-tag { position:absolute; bottom:-12px; left:50%; transform:translateX(-50%); background:var(--ink); color:var(--white); font-size:.65rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:5px 14px; border-radius:100px; white-space:nowrap; }
 
-        /* ── SECTION COMMON ── */
+        /* hero stats row */
+        .hero-stats { display:flex; gap:3rem; flex-wrap:wrap; padding-top:2.5rem; border-top:1px solid var(--border); margin-top:2.5rem; }
+        .hs-n { font-family:var(--font-serif); font-size:2rem; font-weight:400; color:var(--ink); }
+        .hs-l { font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink4); margin-top:2px; }
+
+        /* ══ SECTION WRAPPER ══ */
         .sec { padding:6rem 0; }
-        .sec-inner { max-width:1200px; margin:0 auto; padding:0 clamp(1.5rem,6vw,6rem); }
-        .sec-eyebrow { font-size:.7rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--sky); margin-bottom:.5rem; display:flex; align-items:center; gap:8px; }
-        .sec-eyebrow::before { content:''; display:block; width:20px; height:1px; background:var(--sky); }
-        .sec-h2 { font-size:clamp(2rem,4vw,3rem); font-weight:900; letter-spacing:-.04em; color:#fff; margin-bottom:3rem; line-height:1; }
+        .sec-w { max-width:1200px; margin:0 auto; padding:0 clamp(1.5rem,6vw,7rem); }
 
-        /* ── SKILLS ── */
-        .skills-bg { background:var(--bg2); }
-        .skill-filter { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:2rem; }
-        .sf-btn { font-family:var(--font); font-size:.75rem; font-weight:700; padding:6px 16px; border-radius:100px; border:1px solid var(--border2); background:transparent; color:var(--muted); cursor:pointer; transition:all .2s; }
-        .sf-btn:hover { border-color:var(--sky); color:var(--sky); }
-        .sf-btn.active { background:var(--sky); color:#000; border-color:var(--sky); }
-        .skills-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:.85rem; }
-        .skill-pill {
-          display:flex; align-items:center; gap:10px;
-          background:var(--card); border:1px solid var(--border);
-          border-radius:12px; padding:14px 16px;
-          transition:transform .25s,border-color .25s,box-shadow .25s;
-          cursor:default;
-        }
-        .skill-pill:hover { transform:translateY(-4px); border-color:rgba(56,189,248,.3); box-shadow:0 8px 24px rgba(56,189,248,.08); }
-        .skill-icon { font-size:1.2rem; flex-shrink:0; }
-        .skill-name { font-size:.82rem; font-weight:600; color:var(--text); }
-        .skill-cat-badge { font-size:.6rem; font-weight:700; color:var(--sky); text-transform:uppercase; letter-spacing:.08em; margin-top:2px; }
+        /* section header — editorial style */
+        .sec-tag { font-size:.68rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink3); margin-bottom:.5rem; }
+        .sec-h { font-family:var(--font-serif); font-size:clamp(2rem,4vw,3.2rem); font-weight:400; color:var(--ink); line-height:1.05; margin-bottom:0; letter-spacing:-.02em; }
+        .sec-h em { font-style:italic; color:var(--ink3); }
 
-        /* ── PROJECTS ── */
-        .proj-bg { background:var(--bg); }
-        .proj-grid { display:flex; flex-direction:column; gap:2.5rem; }
-        .proj-card {
-          display:grid; grid-template-columns:auto 1fr;
-          gap:2.5rem; align-items:start;
-          background:var(--card); border:1px solid var(--border);
-          border-radius:20px; padding:2.5rem;
-          transition:border-color .3s,box-shadow .3s,transform .3s;
-          position:relative; overflow:hidden;
-        }
-        .proj-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--color,var(--sky)),transparent); }
-        .proj-card:hover { border-color:rgba(56,189,248,.2); box-shadow:0 20px 60px rgba(0,0,0,.4); transform:translateY(-4px); }
-        .proj-num { font-size:4rem; font-weight:900; line-height:1; letter-spacing:-.05em; color:var(--border2); font-family:var(--font); min-width:80px; }
-        .proj-body { display:flex; flex-direction:column; gap:.9rem; }
-        .proj-tag { display:inline-flex; font-size:.68rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; padding:4px 12px; border-radius:100px; }
-        .proj-title { font-size:1.3rem; font-weight:800; color:#fff; line-height:1.2; }
-        .proj-desc { font-size:.88rem; color:var(--muted); line-height:1.8; max-width:640px; }
-        .proj-bullets { display:flex; flex-direction:column; gap:4px; }
-        .proj-bullet { font-size:.8rem; color:var(--faint); padding-left:12px; border-left:1px solid var(--border2); line-height:1.55; }
-        .proj-stack { display:flex; flex-wrap:wrap; gap:6px; }
-        .proj-tech { font-size:.7rem; font-weight:700; padding:3px 10px; border-radius:5px; border:1px solid; }
-        .proj-links { display:flex; gap:.65rem; flex-wrap:wrap; padding-top:.5rem; border-top:1px solid var(--border); }
-        .p-link { display:inline-flex; align-items:center; gap:5px; font-family:var(--font); font-size:.78rem; font-weight:700; text-decoration:none; padding:7px 14px; border-radius:8px; border:1px solid var(--border2); color:var(--muted); transition:all .2s; }
-        .p-link:hover { border-color:var(--sky); color:var(--sky); }
-        .p-link-live { color:#000 !important; border-color:transparent !important; }
+        /* ══ ABOUT (inside hero) ══ */
+        .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+        .about-label { font-size:.68rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--ink3); margin-bottom:1rem; }
+        .about-body { font-size:.96rem; line-height:1.85; color:var(--ink2); }
 
-        /* ── CERTIFICATIONS ── */
-        .cert-bg { background:var(--bg2); }
-        .cert-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1.5rem; }
-        .cert-card {
-          background:var(--card); border:1px solid var(--border);
-          border-radius:18px; padding:2rem;
-          transition:transform .25s,box-shadow .25s,border-color .25s;
-          position:relative; overflow:hidden;
-        }
-        .cert-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; border-radius:0 0 18px 18px; }
-        .cert-card:hover { transform:translateY(-5px); box-shadow:0 16px 48px rgba(0,0,0,.4); border-color:var(--border2); }
-        .cert-icon-wrap { width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin-bottom:1.2rem; }
-        .cert-title { font-size:1rem; font-weight:800; color:#fff; margin-bottom:4px; }
-        .cert-issuer { font-size:.83rem; font-weight:600; margin-bottom:3px; }
-        .cert-sub { font-size:.78rem; color:var(--faint); margin-bottom:8px; }
-        .cert-date { font-size:.74rem; color:var(--faint); }
-        .cert-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.25); color:#4ade80; font-size:.67rem; font-weight:800; padding:3px 11px; border-radius:100px; letter-spacing:.1em; margin-top:10px; }
+        /* ══ SKILLS ══ */
+        .skills-bg { background:var(--bg); }
+        .skills-header { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom:3rem; }
+        .skill-tabs { display:flex; gap:0; border:1px solid var(--border); border-radius:5px; overflow:hidden; }
+        .skill-tab { font-family:var(--font-sans); font-size:.75rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:8px 18px; background:transparent; border:none; cursor:pointer; color:var(--ink3); transition:all .2s; }
+        .skill-tab.on { background:var(--ink); color:var(--white); }
+        .skills-label { font-size:.68rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--ink3); margin-bottom:1.5rem; padding-bottom:.75rem; border-bottom:1px solid var(--border); }
+        .skills-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:.7rem; }
+        .skill-item { display:flex; flex-direction:column; align-items:center; gap:.5rem; padding:1.4rem 1rem; border:1px solid var(--border); border-radius:6px; background:var(--white); transition:all .25s; cursor:default; text-align:center; }
+        .skill-item:hover { border-color:var(--ink); box-shadow:0 4px 20px rgba(0,0,0,.06); transform:translateY(-3px); }
+        .skill-icon { font-size:1.6rem; line-height:1; }
+        .skill-nm { font-size:.8rem; font-weight:600; color:var(--ink); letter-spacing:.02em; }
 
-        /* ── CONTACT ── */
-        .contact-bg { background:var(--bg); }
-        .contact-grid { display:grid; grid-template-columns:1fr 1.3fr; gap:4rem; align-items:start; }
-        .c-heading { font-size:1.6rem; font-weight:800; color:#fff; margin-bottom:1rem; line-height:1.2; }
-        .c-desc { font-size:.95rem; color:var(--muted); line-height:1.9; margin-bottom:2rem; }
-        .soc-item { display:flex; align-items:center; gap:14px; padding:14px 18px; border-radius:14px; background:var(--card); border:1px solid var(--border); color:var(--text); text-decoration:none; font-weight:600; font-size:.88rem; margin-bottom:.8rem; transition:all .22s; }
-        .soc-item:hover { border-color:rgba(56,189,248,.35); background:rgba(56,189,248,.05); transform:translateX(5px); }
-        .soc-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
-        .soc-label { font-weight:700; color:#fff; font-size:.88rem; }
-        .soc-sub { font-size:.74rem; color:var(--faint); margin-top:1px; }
+        /* ══ PROJECTS ══ */
+        .proj-bg { background:var(--bg2); }
+        .proj-list { display:flex; flex-direction:column; }
+        .proj-item { display:grid; grid-template-columns:100px 1fr; gap:3rem; padding:3.5rem 0; border-bottom:1px solid var(--border); transition:opacity .2s; }
+        .proj-item:first-child { border-top:1px solid var(--border); }
+        .proj-item:hover { opacity:.85; }
+        .proj-num { font-family:var(--font-serif); font-size:3.5rem; font-weight:400; color:var(--border); line-height:1; letter-spacing:-.03em; padding-top:.3rem; }
+        .proj-body { display:flex; flex-direction:column; gap:1rem; }
+        .proj-type { font-size:.65rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--ink3); }
+        .proj-title { font-family:var(--font-serif); font-size:clamp(1.4rem,2.5vw,2rem); font-weight:400; color:var(--ink); line-height:1.2; }
+        .proj-desc { font-size:.9rem; color:var(--ink3); line-height:1.8; max-width:620px; }
+        .proj-stack { display:flex; flex-wrap:wrap; gap:.45rem; }
+        .proj-tech { font-size:.7rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink3); border:1px solid var(--border); padding:4px 11px; border-radius:3px; background:var(--white); }
+        .proj-links { display:flex; gap:.8rem; flex-wrap:wrap; padding-top:.5rem; }
+        .p-link { display:inline-flex; align-items:center; gap:6px; font-family:var(--font-sans); font-size:.78rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; color:var(--ink3); border-bottom:1px solid var(--border); padding-bottom:2px; transition:all .2s; }
+        .p-link:hover { color:var(--ink); border-bottom-color:var(--ink); }
+        .p-link-live { color:var(--white) !important; background:var(--ink); border:none !important; padding:8px 18px; border-radius:4px; }
+        .p-link-live:hover { opacity:.8; }
+
+        /* ══ CERTIFICATIONS ══ */
+        .cert-bg { background:var(--bg); }
+        .cert-list { display:flex; flex-direction:column; }
+        .cert-item { display:grid; grid-template-columns:1fr auto; align-items:center; gap:2rem; padding:2.2rem 0; border-bottom:1px solid var(--border); }
+        .cert-item:first-child { border-top:1px solid var(--border); }
+        .cert-title { font-family:var(--font-serif); font-size:1.25rem; font-weight:400; color:var(--ink); margin-bottom:4px; }
+        .cert-issuer { font-size:.82rem; font-weight:600; color:var(--ink3); letter-spacing:.04em; }
+        .cert-detail { font-size:.8rem; color:var(--ink4); margin-top:3px; }
+        .cert-badge { display:inline-flex; align-items:center; gap:5px; font-size:.65rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#16a34a; background:#f0fdf4; border:1px solid #bbf7d0; padding:5px 13px; border-radius:100px; white-space:nowrap; }
+
+        /* ══ CONTACT ══ */
+        .contact-bg { background:var(--bg2); }
+        .contact-grid { display:grid; grid-template-columns:1fr 1.2fr; gap:5rem; align-items:start; }
+        .contact-big { font-family:var(--font-serif); font-size:clamp(1.5rem,3vw,2.2rem); font-weight:400; color:var(--ink); line-height:1.3; margin-bottom:1.5rem; }
+        .contact-desc { font-size:.95rem; color:var(--ink3); line-height:1.85; margin-bottom:2.5rem; }
+        .contact-items { display:flex; flex-direction:column; gap:.1rem; }
+        .c-item { display:flex; align-items:center; justify-content:space-between; padding:1.1rem 0; border-bottom:1px solid var(--border); text-decoration:none; color:var(--ink); transition:all .2s; }
+        .c-item:first-child { border-top:1px solid var(--border); }
+        .c-item:hover .c-arrow { transform:translate(4px,-4px); }
+        .c-item:hover { opacity:.7; }
+        .c-label { font-size:.72rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--ink3); }
+        .c-val { font-size:.9rem; font-weight:500; color:var(--ink); }
+        .c-arrow { transition:transform .2s; color:var(--ink3); font-size:.9rem; }
 
         /* form */
-        .form-box { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:2.5rem; }
-        .form-title { font-size:1.15rem; font-weight:800; color:#fff; margin-bottom:1.5rem; }
-        .form-row2 { display:grid; grid-template-columns:1fr 1fr; gap:.85rem; }
-        .form-group { display:flex; flex-direction:column; gap:5px; margin-bottom:.85rem; }
-        .form-label { font-size:.72rem; font-weight:700; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; }
-        .form-inp {
-          font-family:var(--font); font-size:.9rem;
-          background:rgba(255,255,255,.04); border:1.5px solid var(--border);
-          border-radius:10px; padding:12px 15px; color:var(--text);
-          outline:none; transition:border-color .2s,box-shadow .2s; width:100%;
-        }
-        .form-inp:focus { border-color:var(--sky); box-shadow:0 0 0 3px rgba(56,189,248,.1); }
-        .form-inp::placeholder { color:var(--faint); }
-        .form-submit { width:100%; font-family:var(--font); font-size:.95rem; font-weight:700; background:var(--sky); color:#000; border:none; border-radius:10px; padding:14px; cursor:pointer; transition:transform .2s,box-shadow .2s,opacity .2s; margin-top:.4rem; box-shadow:0 0 20px rgba(56,189,248,.25); }
-        .form-submit:hover { transform:translateY(-2px); box-shadow:0 0 36px rgba(56,189,248,.4); }
-        .form-submit:disabled { opacity:.65; cursor:not-allowed; transform:none; }
-        .alert-ok { background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.3); color:#4ade80; border-radius:10px; padding:12px 16px; font-size:.87rem; font-weight:700; margin-bottom:1rem; }
-        .alert-err { background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.3); color:#f87171; border-radius:10px; padding:12px 16px; font-size:.87rem; font-weight:700; margin-bottom:1rem; }
+        .form-wrap { background:var(--white); border:1px solid var(--border); border-radius:8px; padding:2.5rem; }
+        .form-title { font-family:var(--font-serif); font-size:1.5rem; font-weight:400; color:var(--ink); margin-bottom:1.8rem; }
+        .f-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+        .f-group { display:flex; flex-direction:column; gap:6px; margin-bottom:1.1rem; }
+        .f-label { font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--ink3); }
+        .f-inp { font-family:var(--font-sans); font-size:.92rem; background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:11px 14px; color:var(--ink); outline:none; transition:border-color .2s; width:100%; }
+        .f-inp:focus { border-color:var(--ink); }
+        .f-inp::placeholder { color:var(--ink4); }
+        .f-submit { width:100%; font-family:var(--font-sans); font-size:.82rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; background:var(--ink); color:var(--white); border:none; border-radius:4px; padding:14px; cursor:pointer; transition:opacity .2s; margin-top:.4rem; }
+        .f-submit:hover { opacity:.8; }
+        .f-submit:disabled { opacity:.5; cursor:not-allowed; }
+        .alert-ok  { background:#f0fdf4; border:1px solid #bbf7d0; color:#16a34a; border-radius:4px; padding:11px 15px; font-size:.85rem; font-weight:600; margin-bottom:1rem; }
+        .alert-err { background:#fff1f2; border:1px solid #fecdd3; color:#e11d48; border-radius:4px; padding:11px 15px; font-size:.85rem; font-weight:600; margin-bottom:1rem; }
 
-        /* ── FOOTER ── */
-        .footer { background:var(--bg); border-top:1px solid var(--border); padding:3rem clamp(1.5rem,6vw,6rem); }
+        /* ══ FOOTER ══ */
+        .footer { background:var(--ink); padding:3rem clamp(1.5rem,6vw,7rem); }
         .footer-inner { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem; }
-        .footer-logo { font-size:1.3rem; font-weight:900; background:linear-gradient(90deg,#fff,var(--sky)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-        .footer-links { display:flex; gap:1.8rem; }
-        .footer-link { font-family:var(--font); font-size:.82rem; font-weight:600; color:var(--faint); text-decoration:none; transition:color .2s; }
-        .footer-link:hover { color:var(--sky); }
-        .footer-copy { font-size:.78rem; color:var(--faint); }
+        .footer-logo { font-family:var(--font-serif); font-size:1.4rem; font-weight:400; color:var(--white); }
+        .footer-links { display:flex; gap:2rem; }
+        .footer-link { font-family:var(--font-sans); font-size:.75rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.45); text-decoration:none; transition:color .2s; }
+        .footer-link:hover { color:var(--white); }
+        .footer-copy { font-size:.75rem; color:rgba(255,255,255,.3); }
 
-        /* ── RESPONSIVE ── */
-        @media(max-width:900px) { .proj-card { grid-template-columns:1fr !important; } .proj-num { font-size:2.5rem; } .contact-grid { grid-template-columns:1fr !important; } .form-row2 { grid-template-columns:1fr !important; } }
-        @media(max-width:768px) { .hero-inner { grid-template-columns:1fr !important; text-align:center; padding-bottom:3rem; } .hero-btns { justify-content:center; } .stats { justify-content:center; } .hero-divider { margin:2rem auto; } .nav-ul { display:none !important; } .hbg { display:flex !important; } .avcol { order:-1; margin:0 auto; } .footer-inner { flex-direction:column; text-align:center; } .footer-links { justify-content:center; } }
+        /* ══ RESPONSIVE ══ */
+        @media(max-width:900px) { .hero-inner { grid-template-columns:1fr !important; } .about-grid { grid-template-columns:1fr !important; } .proj-item { grid-template-columns:1fr !important; } .proj-num { display:none; } .contact-grid { grid-template-columns:1fr !important; } .f-row { grid-template-columns:1fr !important; } }
+        @media(max-width:768px) { .nav-ul { display:none !important; } .hbg { display:flex !important; } .avcol { order:-1; margin:0 auto; } .hero-btns { flex-direction:column; align-items:flex-start; } .hero-stats { gap:2rem; } .footer-inner { flex-direction:column; text-align:center; } .footer-links { justify-content:center; } }
       `}</style>
 
-      <div style={{ fontFamily:"var(--font)" }}>
+      <div style={{ fontFamily: "var(--font-sans)" }}>
 
-        {/* ══ NAV ══ */}
+        {/* ══════ NAV ══════ */}
         <nav className="nav">
-          <div className="nav-logo">AJ.</div>
+          <div className="nav-logo">Anand <span>J.</span></div>
           <ul className="nav-ul">
-            {NAV_LINKS.map(l => <li key={l} className={`nav-li${active===l?" on":""}`} onClick={()=>go(l)}>{l}</li>)}
+            {NAV_LINKS.map(l => <li key={l} className={`nav-li${active === l ? " on" : ""}`} onClick={() => go(l)}>{l}</li>)}
           </ul>
-          <div style={{ display:"flex", alignItems:"center", gap:"1rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             <a href={RESUME_URL} target="_blank" rel="noreferrer" className="nav-cta">Resume ↗</a>
-            <div className="hbg" onClick={()=>setMenu(o=>!o)}>
-              <span style={{ transform:menu?"rotate(45deg) translate(5px,5px)":"none" }} />
-              <span style={{ opacity:menu?0:1 }} />
-              <span style={{ transform:menu?"rotate(-45deg) translate(5px,-5px)":"none" }} />
+            <div className="hbg" onClick={() => setMenu(o => !o)}>
+              <span style={{ transform: menu ? "rotate(45deg) translate(5px,5px)" : "none" }} />
+              <span style={{ opacity: menu ? 0 : 1 }} />
+              <span style={{ transform: menu ? "rotate(-45deg) translate(5px,-5px)" : "none" }} />
             </div>
           </div>
         </nav>
         {menu && (
           <div className="mob-menu">
-            {NAV_LINKS.map(l => <div key={l} className="mob-li" onClick={()=>go(l)}>{l}</div>)}
+            {NAV_LINKS.map(l => <div key={l} className="mob-li" onClick={() => go(l)}>{l}</div>)}
           </div>
         )}
 
-        {/* ══ HERO ══ */}
+        {/* ══════ HERO ══════ */}
         <section id="about" className="hero">
-          {/* decorative grid lines */}
-          <div style={{ position:"absolute", inset:0, backgroundImage:"linear-gradient(rgba(56,189,248,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.025) 1px,transparent 1px)", backgroundSize:"72px 72px", pointerEvents:"none" }} />
-          {/* top glow bar */}
-          <div style={{ position:"absolute", top:0, left:0, right:0, height:"1px", background:"linear-gradient(90deg,transparent,var(--sky) 40%,var(--purple) 70%,transparent)", opacity:.5 }} />
-
           <div className="hero-inner">
             <div>
-              <div className="hero-tag">
-                <span className="hero-dot" />
-                <span className="hero-tag-txt">Open to Opportunities</span>
-              </div>
-
-              <h1 className="hero-name">Anand J</h1>
-
+              <div className="hero-eyebrow">Portfolio — 2025</div>
+              <div className="hi">Hi, I am</div>
+              <h1 className="hero-name">Anand J.</h1>
               <div className="hero-role">
-                <span>{typed}</span>
-                <span className="hero-cursor" />
+                <em>{typed}</em>
+                <span className="cursor" />
               </div>
-
               <p className="hero-desc">
-                Motivated MERN Stack Developer with hands-on experience building scalable full-stack
-                web applications. Strong in component-based architecture, REST API design, and MongoDB
-                database modeling.
+                Motivated MERN Stack Developer with hands-on experience building scalable full-stack web applications.
+                Strong in component-based architecture, REST API design, and MongoDB database modeling.
+                Actively seeking a full-stack developer role.
               </p>
-
               <div className="hero-btns">
-                <button className="btn-solid" onClick={()=>go("Projects")}>View Projects →</button>
-                <button className="btn-ghost" onClick={()=>go("Contact")}>Get In Touch</button>
+                <button className="btn-dark" onClick={() => go("Projects")}>View Projects</button>
+                <button className="btn-outline" onClick={() => go("Contact")}>Contact Me</button>
               </div>
-
-              <div className="hero-divider" />
-
-              <div className="stats">
-                {[["3","MERN Projects"],["10+","APIs Built"],["7.59","CGPA B.Tech"]].map(([n,l])=>(
+              <div className="hero-stats">
+                {[["3", "Projects built"], ["10+", "APIs developed"], ["7.59", "CGPA — B.Tech"]].map(([n, l]) => (
                   <div key={l}>
-                    <div className="stat-n">{n}</div>
-                    <div className="stat-l">{l}</div>
+                    <div className="hs-n">{n}</div>
+                    <div className="hs-l">{l}</div>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* avatar */}
-            <div className="avatar-float avcol">
-              <div className="avatar-wrap">
-                <div className="av-glow" />
-                <div className="av-ring" />
-                <div className="av-img">
-                  {PROFILE_IMAGE
-                    ? <img src={PROFILE_IMAGE} alt="Anand J" />
-                    : <div className="av-placeholder">👨‍💻</div>
-                  }
+            <div className="av-wrap avcol">
+              <div className="av-circle">
+                {PROFILE_IMAGE
+                  ? <img src={PROFILE_IMAGE} alt="Anand J" />
+                  : <div className="av-placeholder">👨‍💻</div>
+                }
+              </div>
+              <div className="av-tag">MERN Developer</div>
+            </div>
+          </div>
+
+          {/* About strip inside hero section */}
+          <div style={{ maxWidth: "1200px", margin: "0 auto", width: "100%", padding: "0 clamp(1.5rem,6vw,7rem)", paddingBottom: "5rem" }}>
+            <div style={{ borderTop: "1px solid var(--border)", paddingTop: "3rem" }}>
+              <div className="about-grid">
+                <div>
+                  <div className="about-label">About Me</div>
+                  <p className="about-body">
+                    I'm a <strong>MERN Stack Developer</strong> from Salem, Tamil Nadu, with a B.Tech in
+                    Artificial Intelligence & Data Science (CGPA: 7.59). I specialize in building scalable
+                    full-stack applications using React.js, Node.js, Express.js, and MongoDB — with a strong
+                    focus on clean code, REST architecture, and component-based design.
+                  </p>
+                </div>
+                <div>
+                  <div className="about-label">Education</div>
+                  <p className="about-body">
+                    <strong>Mahendra Engineering College</strong><br />
+                    B.Tech — Artificial Intelligence and Data Science<br />
+                    2022 – 2025 · CGPA: 7.59<br /><br />
+                    Certified in MERN Stack Development & Version Control via GUVI — Geek Networks.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ══ SKILLS ══ */}
+        {/* ══════ SKILLS ══════ */}
         <section id="skills" className="sec skills-bg">
-          <div className="sec-inner">
-            <Reveal>
-              <div className="sec-eyebrow">What I work with</div>
-              <h2 className="sec-h2">Technical Skills</h2>
-            </Reveal>
-
-            {/* filter tabs */}
-            <Reveal delay={0.05}>
-              <div className="skill-filter">
-                {skillCats.map(c => (
-                  <button key={c} className={`sf-btn${activeSkillCat===c?" active":""}`} onClick={()=>setActiveSkillCat(c)}>{c}</button>
-                ))}
+          <div className="sec-w">
+            <FadeUp>
+              <div className="skills-header">
+                <div>
+                  <div className="sec-tag">What I work with</div>
+                  <h2 className="sec-h">Technical <em>Skills</em></h2>
+                </div>
+                <div className="skill-tabs">
+                  <button className={`skill-tab${skillTab === "main" ? " on" : ""}`} onClick={() => setSkillTab("main")}>Core</button>
+                  <button className={`skill-tab${skillTab === "more" ? " on" : ""}`} onClick={() => setSkillTab("more")}>Tools & More</button>
+                </div>
               </div>
-            </Reveal>
+            </FadeUp>
 
+            <div className="skills-label">{skillTab === "main" ? "CURRENTLY USING" : "TOOLS & OTHER SKILLS"}</div>
             <div className="skills-grid">
-              {filteredSkills.map((s,i) => (
-                <Reveal key={s.name} delay={i*0.04}>
-                  <div className="skill-pill">
+              {(skillTab === "main" ? SKILLS_MAIN : SKILLS_MORE).map((s, i) => (
+                <FadeUp key={s.name} delay={i * 0.05}>
+                  <div className="skill-item">
                     <span className="skill-icon">{s.icon}</span>
-                    <div>
-                      <div className="skill-name">{s.name}</div>
-                      <div className="skill-cat-badge">{s.cat}</div>
-                    </div>
+                    <span className="skill-nm">{s.name}</span>
                   </div>
-                </Reveal>
+                </FadeUp>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ══ PROJECTS ══ */}
+        {/* ══════ PROJECTS ══════ */}
         <section id="projects" className="sec proj-bg">
-          <div className="sec-inner">
-            <Reveal>
-              <div className="sec-eyebrow">What I've built</div>
-              <h2 className="sec-h2">Projects</h2>
-            </Reveal>
+          <div className="sec-w">
+            <FadeUp>
+              <div className="sec-tag">What I've built</div>
+              <h2 className="sec-h" style={{ marginBottom: "0" }}>Selected <em>Projects</em></h2>
+            </FadeUp>
 
-            <div className="proj-grid">
-              {PROJECTS.map((p,i) => (
-                <Reveal key={p.title} delay={i*0.1}>
-                  <div className="proj-card" style={{ "--color": p.color }}>
+            <div className="proj-list">
+              {PROJECTS.map((p, i) => (
+                <FadeUp key={p.title} delay={i * 0.08}>
+                  <div className="proj-item">
                     <div className="proj-num">{p.num}</div>
                     <div className="proj-body">
-                      {/* tag */}
-                      <div>
-                        <span className="proj-tag" style={{ background:`${p.color}15`, color:p.color, border:`1px solid ${p.color}30` }}>{p.tag}</span>
-                      </div>
+                      <div className="proj-type">{p.type}</div>
                       <div className="proj-title">{p.title}</div>
                       <p className="proj-desc">{p.desc}</p>
-
-                      {/* highlights */}
-                      <div className="proj-bullets">
-                        {p.highlights.map(h => <div key={h} className="proj-bullet" style={{ borderLeftColor:`${p.color}40` }}>{h}</div>)}
+                      <div className="proj-stack">
+                        {p.stack.map(s => <span key={s} className="proj-tech">{s}</span>)}
                       </div>
-
-                      {/* stack */}
-                      <div>
-                        <div style={{ fontSize:".65rem", fontWeight:700, letterSpacing:".1em", textTransform:"uppercase", color:"var(--faint)", marginBottom:"8px" }}>Tech Stack</div>
-                        <div className="proj-stack">
-                          {p.stack.map(s => (
-                            <span key={s} className="proj-tech" style={{ background:`${p.color}0d`, borderColor:`${p.color}30`, color:p.color }}>{s}</span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* links */}
                       <div className="proj-links">
                         <a href={p.github_fe} target="_blank" rel="noreferrer" className="p-link">
-                          <GH /> {p.github_be ? "Frontend" : "GitHub"}
+                          <GH size={13} /> {p.github_be ? "Frontend Repo" : "GitHub"}
                         </a>
                         {p.github_be && (
                           <a href={p.github_be} target="_blank" rel="noreferrer" className="p-link">
-                            <GH /> Backend
+                            <GH size={13} /> Backend Repo
                           </a>
                         )}
-                        {p.live !== "#" ? (
-                          <a href={p.live} target="_blank" rel="noreferrer" className="p-link p-link-live" style={{ background:p.color }}>
+                        {p.live !== "#" && (
+                          <a href={p.live} target="_blank" rel="noreferrer" className="p-link p-link-live">
                             ↗ Live Demo
                           </a>
-                        ) : (
-                          <span className="p-link" style={{ opacity:.5, cursor:"default" }}>🔒 Coming Soon</span>
                         )}
                       </div>
                     </div>
                   </div>
-                </Reveal>
+                </FadeUp>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ══ CERTIFICATIONS ══ */}
+        {/* ══════ CERTIFICATIONS ══════ */}
         <section id="certifications" className="sec cert-bg">
-          <div className="sec-inner">
-            <Reveal>
-              <div className="sec-eyebrow">Credentials</div>
-              <h2 className="sec-h2">Certifications</h2>
-            </Reveal>
-            <div className="cert-grid">
-              {CERTS.map((c,i) => (
-                <Reveal key={c.title} delay={i*0.1}>
-                  <div className="cert-card" style={{ borderColor:`${c.color}20` }}>
-                    <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"2px", background:c.color, borderRadius:"0 0 18px 18px", opacity:.6 }} />
-                    <div className="cert-icon-wrap" style={{ background:`${c.color}15`, border:`1px solid ${c.color}30` }}>
-                      <span style={{ fontSize:"1.5rem" }}>{i===0?"🏆":"🎓"}</span>
+          <div className="sec-w">
+            <FadeUp>
+              <div className="sec-tag">Credentials</div>
+              <h2 className="sec-h" style={{ marginBottom: "0" }}>Certifi<em>cations</em></h2>
+            </FadeUp>
+
+            <div className="cert-list">
+              {CERTS.map((c, i) => (
+                <FadeUp key={c.title} delay={i * 0.08}>
+                  <div className="cert-item">
+                    <div>
+                      <div className="cert-title">{c.title}</div>
+                      <div className="cert-issuer">{c.issuer}</div>
+                      <div className="cert-detail">{c.detail}</div>
                     </div>
-                    <div className="cert-title">{c.title}</div>
-                    <div className="cert-issuer" style={{ color:c.color }}>{c.issuer}</div>
-                    <div className="cert-sub">{c.sub}</div>
-                    <div className="cert-date">{c.date}</div>
                     <div className="cert-badge">✓ Verified</div>
                   </div>
-                </Reveal>
+                </FadeUp>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ══ CONTACT ══ */}
+        {/* ══════ CONTACT ══════ */}
         <section id="contact" className="sec contact-bg">
-          <div className="sec-inner">
-            <Reveal>
-              <div className="sec-eyebrow">Let's connect</div>
-              <h2 className="sec-h2">Get In Touch</h2>
-            </Reveal>
+          <div className="sec-w">
+            <FadeUp>
+              <div className="sec-tag">Let's connect</div>
+              <h2 className="sec-h" style={{ marginBottom: "3rem" }}>Get In <em>Touch</em></h2>
+            </FadeUp>
 
             <div className="contact-grid">
               {/* left */}
-              <Reveal delay={0.05}>
+              <FadeUp delay={0.05}>
                 <div>
-                  <div className="c-heading">Let's build<br />something great.</div>
-                  <p className="c-desc">I'm actively looking for fresher MERN Stack / Full-Stack developer opportunities. Feel free to reach out for positions, collaborations, or just to say hi!</p>
+                  <div className="contact-big">Let's build something<br />great together.</div>
+                  <p className="contact-desc">
+                    I'm actively looking for fresher MERN Stack or Full-Stack developer opportunities.
+                    Feel free to reach out for positions, collaborations, or just to say hello.
+                  </p>
 
-                  {[
-                    { icon:"✉",  label:"Email",    sub:"anandjayakumardae@gmail.com", href:"mailto:anandjayakumardae@gmail.com", bg:"rgba(56,189,248,.1)" },
-                    { icon:"💼", label:"LinkedIn",  sub:"linkedin.com/in/anand-j",      href:"https://www.linkedin.com/in/anand-j/",    bg:"rgba(29,78,216,.15)" },
-                    { icon:"🐙", label:"GitHub",    sub:"github.com/Anand12082001",     href:"https://github.com/Anand12082001",        bg:"rgba(255,255,255,.06)" },
-                    { icon:"📄", label:"Resume",    sub:"View / Download",              href:RESUME_URL,                                bg:"rgba(52,211,153,.1)" },
-                    { icon:"📍", label:"Location",  sub:"Salem, Tamil Nadu, India",      href:null,                                     bg:"rgba(167,139,250,.1)" },
-                  ].map(({ icon, label, sub, href, bg }) => (
-                    <a key={label} href={href||undefined} target={href&&!href.startsWith("mailto")?"_blank":undefined} rel="noreferrer" className="soc-item" style={{ cursor:href?"pointer":"default" }}>
-                      <span className="soc-icon" style={{ background:bg }}>{icon}</span>
-                      <div>
-                        <div className="soc-label">{label}</div>
-                        <div className="soc-sub">{sub}</div>
-                      </div>
-                    </a>
-                  ))}
+                  <div className="contact-items">
+                    {[
+                      { label: "Email", val: "anandjayakumardae@gmail.com", href: "mailto:anandjayakumardae@gmail.com" },
+                      { label: "LinkedIn", val: "linkedin.com/in/anand-j", href: "https://www.linkedin.com/in/anand-j/" },
+                      { label: "GitHub", val: "github.com/Anand12082001", href: "https://github.com/Anand12082001" },
+                      { label: "Resume", val: "View / Download", href: RESUME_URL },
+                      { label: "Location", val: "Salem, Tamil Nadu, India", href: null },
+                    ].map(({ label, val, href }) => (
+                      <a key={label} href={href || undefined} target={href && !href.startsWith("mailto") ? "_blank" : undefined} rel="noreferrer" className="c-item" style={{ cursor: href ? "pointer" : "default", textDecoration: "none" }}>
+                        <div>
+                          <div className="c-label">{label}</div>
+                          <div className="c-val">{val}</div>
+                        </div>
+                        {href && <span className="c-arrow">↗</span>}
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </Reveal>
+              </FadeUp>
 
               {/* right — form */}
-              <Reveal delay={0.1}>
-                <div className="form-box">
+              <FadeUp delay={0.1}>
+                <div className="form-wrap">
                   <div className="form-title">Send a Message</div>
                   {sent && <div className="alert-ok">✓ Message sent! I'll reply within 24 hours.</div>}
-                  {err  && <div className="alert-err">⚠ {err}</div>}
+                  {err && <div className="alert-err">⚠ {err}</div>}
                   <form onSubmit={fs}>
-                    <div className="form-row2">
-                      <div className="form-group">
-                        <label className="form-label">Name *</label>
-                        <input className="form-inp" name="name" placeholder="Your name" value={form.name} onChange={fc} />
+                    <div className="f-row">
+                      <div className="f-group">
+                        <label className="f-label">Name *</label>
+                        <input className="f-inp" name="name" placeholder="Your name" value={form.name} onChange={fc} />
                       </div>
-                      <div className="form-group">
-                        <label className="form-label">Email *</label>
-                        <input className="form-inp" name="email" type="email" placeholder="your@email.com" value={form.email} onChange={fc} />
+                      <div className="f-group">
+                        <label className="f-label">Email *</label>
+                        <input className="f-inp" name="email" type="email" placeholder="your@email.com" value={form.email} onChange={fc} />
                       </div>
                     </div>
-                    <div className="form-group">
-                      <label className="form-label">Subject</label>
-                      <input className="form-inp" name="subject" placeholder="Job Opportunity / Collaboration" value={form.subject} onChange={fc} />
+                    <div className="f-group">
+                      <label className="f-label">Subject</label>
+                      <input className="f-inp" name="subject" placeholder="Job Opportunity / Collaboration" value={form.subject} onChange={fc} />
                     </div>
-                    <div className="form-group">
-                      <label className="form-label">Message *</label>
-                      <textarea className="form-inp" name="message" placeholder="Write your message..." value={form.message} onChange={fc} rows={5} style={{ resize:"vertical" }} />
+                    <div className="f-group">
+                      <label className="f-label">Message *</label>
+                      <textarea className="f-inp" name="message" placeholder="Write your message..." value={form.message} onChange={fc} rows={5} style={{ resize: "vertical" }} />
                     </div>
-                    <button type="submit" className="form-submit" disabled={loading}>
-                      {loading ? "Sending…" : "Send Message →"}
+                    <button type="submit" className="f-submit" disabled={loading}>
+                      {loading ? "Sending…" : "Send Message"}
                     </button>
                   </form>
                 </div>
-              </Reveal>
+              </FadeUp>
             </div>
           </div>
         </section>
 
-        {/* ══ FOOTER ══ */}
+        {/* ══════ FOOTER ══════ */}
         <footer className="footer">
-          {/* top line */}
-          <div style={{ position:"absolute", left:0, right:0, height:"1px", background:"linear-gradient(90deg,transparent,var(--sky) 40%,var(--purple) 70%,transparent)", opacity:.3, marginTop:"-3rem" }} />
           <div className="footer-inner">
-            <div>
-              <div className="footer-logo">AJ.</div>
-              <div className="footer-copy" style={{ marginTop:"4px" }}>MERN Stack Developer · Salem, Tamil Nadu</div>
-            </div>
+            <div className="footer-logo">Anand J.</div>
             <div className="footer-links">
-              {[["GitHub","https://github.com/Anand12082001"],["LinkedIn","https://www.linkedin.com/in/anand-j/"],["Resume",RESUME_URL]].map(([l,h])=>(
+              {[["GitHub", "https://github.com/Anand12082001"], ["LinkedIn", "https://www.linkedin.com/in/anand-j/"], ["Resume", RESUME_URL]].map(([l, h]) => (
                 <a key={l} href={h} target="_blank" rel="noreferrer" className="footer-link">{l}</a>
               ))}
             </div>
-            <div className="footer-copy">© {new Date().getFullYear()} Anand J · All rights reserved</div>
+            <div className="footer-copy">© {new Date().getFullYear()} Anand J. All rights reserved.</div>
           </div>
         </footer>
 
