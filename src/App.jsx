@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 
 const NAV_LINKS = ["About", "Skills", "Projects", "Certifications", "Contact"];
-const RESUME_URL = "https://drive.google.com/file/d/1KhxbItu50wbAjbzkN8EXO1chFGriu2XF/view?usp=sharing";
+const RESUME_URL = "https://drive.google.com/file/d/1f1Y9wJ4yRp8qK5n9Kb5J0ndommUZsYFr/view?usp=sharing";
 const PROFILE_IMAGE = "/Anand.png";
 
 // ── EmailJS Config ──────────────────────────────────────────────────
@@ -70,8 +70,8 @@ const PROJECTS = [
 ];
 
 const CERTS = [
-  { title: "MERN Stack Development", issuer: "GUVI — Geek Networks", detail: "Full-Stack Web Development Certification Program · Dec 2024" },
-  { title: "Version Control — Git & GitHub", issuer: "GUVI — Geek Networks", detail: "Branching, pull requests & collaborative workflows · 2024" },
+  { title: "MERN Stack Development", issuer: "GUVI — Geek Networks", detail: "Full-Stack Web Development Certification Program · Dec 2025" },
+  { title: "Version Control — Git & GitHub", issuer: "GUVI — Geek Networks", detail: "Branching, pull requests & collaborative workflows · 2025" },
 ];
 
 /* helpers */
@@ -389,7 +389,7 @@ export default function App() {
         <section id="about" className="hero">
           <div className="hero-inner">
             <div>
-              <div className="hero-eyebrow">Portfolio — 2025</div>
+              <div className="hero-eyebrow">Portfolio — 2026</div>
               <div className="hi">Hi, I am</div>
               <h1 className="hero-name">Anand J.</h1>
               <div className="hero-role">
