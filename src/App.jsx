@@ -43,8 +43,8 @@ const PROJECTS = [
     type: "FULL-STACK · MERN",
     desc: "A production-grade, role-based full-stack web application that digitizes and manages student placements and company recruitment workflows. Features JWT authentication with role-specific access control for Student, TPO, and Admin.",
     stack: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT", "Axios"],
-    github_fe: "https://github.com/Anand12082001",
-    github_be: "https://github.com/Anand12082001",
+    github_fe: "https://github.com/Anand12082001/Project_CPMS_FrontEnd.git",
+    github_be: "https://github.com/Anand12082001/Project_CPMS_BackEnd.git",
     live: "https://sparkling-vacherin-edc492.netlify.app/",
   },
   {
@@ -53,8 +53,8 @@ const PROJECTS = [
     type: "FULL-STACK · MERN",
     desc: "A full-stack invoice management app to create, edit, preview, and export professional invoices with real-time total and tax calculation. Features dynamic React form components with controlled state and full CRUD support.",
     stack: ["React.js", "Node.js", "Express.js", "MongoDB", "Mongoose"],
-    github_fe: "https://github.com/Anand12082001",
-    github_be: "https://github.com/Anand12082001",
+    github_fe: "https://github.com/Anand12082001/Project1_invoice-builder.git",
+    github_be: "https://github.com/Anand12082001/Project1_invoice-builder.git",
     live: "https://velvety-lily-fbab4f.netlify.app/",
   },
   {
